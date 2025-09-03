@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tech Trek - By Delhi Public School Vadodara</title>
-    <link href="https://fonts.googleapis.com/css2?family=Federant&family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "Federant", serif;
+            font-family: "Audiowide", sans-serif;
         }
         a:link{
             color: #00ff9d;
         }
         a:visited{
-            color:rgb(195, 0, 255);
+            color:#00ff9d;
         }
         :root {
             --primary: #0a192f;
@@ -220,6 +220,11 @@
             position: relative;
             text-transform: uppercase;
             letter-spacing: 3px;
+            background: linear-gradient(90deg, #64ffda, #00ff9d, #64ffda);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: holo-glow 3s infinite linear;
         }
 
         .section-title:after {
@@ -249,14 +254,18 @@
             transition: all 0.3s ease;
             opacity: 0;
             transform: translateY(50px);
-            border: 1px solid rgba(100, 255, 218, 0.1);
+            border: 0.5px solid rgba(100, 255, 218, 0.1);
             backdrop-filter: blur(5px);
+            perspective: 1000px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .event-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
             border-color: rgba(100, 255, 218, 0.3);
+            transform: rotateY(10deg) rotateX(5deg) scale(1.03);
+            box-shadow: 0 20px 40px rgba(100, 255, 218, 0.4);
         }
 
         .event-img {
@@ -477,6 +486,12 @@
             }
         }
 
+        /* Holographic Text */
+        @keyframes holo-glow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .nav-links {
@@ -521,14 +536,27 @@
                 font-size: 2rem;
             }
         }
+        /* #cursor-trail {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 9999;
+        }       */
     </style>
 </head>
 <body>
     <!-- Matrix Rain Effect -->
     <canvas id="matrix-canvas"></canvas>
 
+    <!-- Cursor Style -->
+    <!-- <canvas id="cursor-trail"></canvas> -->
+
     <!-- Header & Navigation -->
     <header>
+        <audio autoplay loop>
+            <source src="main_music.mp3">
+        </audio>
         <div class="nav-container">
             <div class="logo">
                 <i class="fas fa-laptop-code"></i>
@@ -536,9 +564,10 @@
             </div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
-                <li><a href="#events">Events</a></li>
-                <li><a href="#bulletin">Gallery</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
                 <li><a href="#contact">Contact Us</a></li>
+                <li><a href="#contact">Team</a></li>
             </ul>
             <div class="hamburger">
                 <i class="fas fa-bars"></i>
@@ -551,8 +580,10 @@
         <div class="hero-content">
             <h1>TECH TREK 3.0</h1>
             <p>Embark on a journey of innovation, creativity, and technology. Join us for the most anticipated tech event of the year featuring three exciting competitions.</p>
+            <p>Schools from all over Vadodara may register in the event.</p>
             <p>Dates Coming Soon | DPS VADODARA</p>
             <a href="#events" class="btn">Explore Events</a>
+            <div id="countdown" class="btn"></div>
         </div>
     </section>
 
@@ -565,7 +596,7 @@
                 <div class="event-content">
                     <h3>TECH TREK 1.0</h3>
                     <p>From coding to creativity, the very first Tech Trek set the stage for young tech enthusiasts to showcase brilliance beyond boundaries.</p>
-                    <a href="tech-trek1.0" class="btn">Learn More</a>
+                    <a href="tt24.html" class="btn">Learn More</a>
                 </div>
             </div>
             <div class="event-card">
@@ -573,7 +604,7 @@
                 <div class="event-content">
                     <h3>TECH TREK 2.0</h3>
                     <p>Carrying forward the legacy of 2024, Tech Trek 2.0 is here to redefine how technology, creativity, and knowledge converge.</p>
-                    <a href="tech-trek2.0" class="btn">Learn More</a>
+                    <a href="tt25.html" class="btn">Learn More</a>
                 </div>
             </div>
             <div class="event-card">
@@ -581,7 +612,7 @@
                 <div class="event-content">
                     <h3>TECH TREK 3.0</h3>
                     <p>Tech Trek 3.0 isn’t just another event, it’s the evolution of a movement—where every participant steps in as a learner and walks out as a trailblazer.</p>
-                    <a href="tech-trek3.0" class="btn">Learn More</a>
+                    <a href="tt26.html" class="btn">Learn More</a>
                 </div>
             </div>
             <!-- Add more after tech trek 3.0 registration finished in 2026 -->
@@ -592,20 +623,20 @@
     <section class="bulletin" id="bulletin">
         <div class="bulletin-container">
             <h2 class="section-title">Gallery</h2>
-            <p>GET ALL THE PHOTO ARCHIVES HERE!!</p>
+            <p>GET ALL THE PHOTOS OF TECH TREK HERE!!</p>
             
             <div class="news-ticker">
                 <div class="news-item">
-                    <h4><i class="fas fa-bullhorn"></i> REGISTRATION OPEN</h4>
-                    <p>Registration for all events is now open. Deadline: August 10, 2026.</p>
+                    <h4><i class="fas fa-bullhorn"></i> REGISTRATIONS</h4>
+                    <p>Registration for Tech Trek 3.0 will begin on July 15, 2026. Deadline: August 10, 2026.</p>
                 </div>
                 <div class="news-item">
                     <h4><i class="fas fa-trophy"></i> DOWNLOAD BROCHURE</h4>
                     <p><a href="https://www.google.com">Brochure</a></p>
                 </div>
                 <div class="news-item">
-                    <h4><i class="fas fa-calendar-alt"></i> SCHEDULE RELEASED</h4>
-                    <p><a href="https://www.google.com">The detailed schedule of Tech Trek is now available.</a></p>
+                    <h4><i class="fas fa-calendar-alt"></i> ALSO SEE: </h4>
+                    <p><a href="tt26.html">TECH TREK 3.0</a></p>
                 </div>
             </div>
         </div>
@@ -619,7 +650,7 @@
                 <ul class="contact-info">
                     <li><i class="fas fa-map-marker-alt"></i> DELHI PUBLIC SCHOOL VADODARA</li>
                     <li><i class="fas fa-phone"></i> 078618 79371</li>
-                    <li><i class="fas fa-envelope"></i> <a href="mailto:info@techtrek.com">johndoe@example.com</a></li>
+                    <li><i class="fas fa-envelope"></i> <a href="mailto:techtrekdpsv@gmail.com">techtrekdpsv@gmail.com</a></li>
                 </ul>
             </div>
             <div class="footer-section">
@@ -633,11 +664,68 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy;TECH TREK OFFICIAL - By DPS VADODARA | All Rights Reserved.</p>
+            <p>&copy;TECH TREK 2025 - By DPS VADODARA | All Rights Reserved.</p>
         </div>
     </footer>
 
     <script>
+        // Cursor
+        // const trailCanvas = document.getElementById('cursor-trail');
+        // const tctx = trailCanvas.getContext('2d');
+        // trailCanvas.width = window.innerWidth;
+        // trailCanvas.height = window.innerHeight;
+
+        // let particles = [];
+
+        // class Particle {
+        //     constructor(x, y) {
+        //         this.x = x;
+        //         this.y = y;
+        //         this.size = Math.random() * 5 + 2;
+        //         this.speedX = (Math.random() - 0.5) * 3;
+        //         this.speedY = (Math.random() - 0.5) * 3;
+        //         this.alpha = 1;
+        //     }
+        //     update() {
+        //         this.x += this.speedX;
+        //         this.y += this.speedY;
+        //         this.alpha -= 0.02;
+        //     }
+        //     draw() {
+        //         tctx.globalAlpha = this.alpha;
+        //         tctx.fillStyle = "#64ffda";
+        //         tctx.beginPath();
+        //         tctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        //         tctx.fill();
+        //         tctx.globalAlpha = 1;
+        //     }
+        // }
+
+        // function handleParticles() {
+        //     for (let i = 0; i < particles.length; i++) {
+        //         particles[i].update();
+        //         particles[i].draw();
+        //         if (particles[i].alpha <= 0) {
+        //             particles.splice(i, 1);
+        //             i--;
+        //         }
+        //     }
+        // }
+
+        // function animateTrail() {
+        //     tctx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
+        //     handleParticles();
+        //     requestAnimationFrame(animateTrail);
+        // }
+
+        // window.addEventListener("mousemove", (e) => {
+        //     for (let i = 0; i < 3; i++) {
+        //         particles.push(new Particle(e.x, e.y));
+        //     }
+        // });
+        // animateTrail();
+
+
         // Matrix Rain Effect
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
@@ -741,6 +829,28 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         });
+
+        // Continuous Working of Music
+        const audio = document.getElementById('bg-music');
+        // Restore playback position
+        if(localStorage.getItem("musicTime")){
+            audio.currentTime = localStorage.getItem("musicTime");
+        }
+        // Save position before leaving page
+        window.addEventListener("beforeunload", () => {
+            localStorage.setItem("musicTime", audio.currentTime);
+        });
+        const eventDate = new Date("August 22, 2026 08:00:00").getTime();
+        const countdown = document.getElementById("countdown");
+        setInterval(() => {
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((distance / (1000 * 60)) % 60);
+            const seconds = Math.floor((distance / 1000) % 60);
+            countdown.innerHTML = `🎯 ${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }, 1000);
     </script>
 </body>
 
