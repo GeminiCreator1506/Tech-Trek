@@ -588,6 +588,36 @@
                 text-shadow: none;
             }
         }
+
+        /* For mobile Screens, Glow Effect Changes */
+        @media (max-width: 768px) {
+            .intro-title {
+                text-shadow: 0 0 3px #00ffff, 0 0 6px #00ff9d, 0 0 12px #00ffff !important;
+                font-size: 2rem;
+            }
+            @keyframes titleReveal {
+                0% {
+                    opacity: 0;
+                    transform: scale(0.9);
+                    text-shadow: none;
+                }
+                20% {
+                    opacity: 1;
+                    transform: scale(1);
+                    text-shadow: 0 0 5px #00ffff, 0 0 10px #00ff9d, 0 0 20px #00ffff;
+                }
+                70% {
+                    opacity: 1;
+                    transform: scale(1.05);
+                    text-shadow: 0 0 8px #00ffff, 0 0 16px #00ff9d, 0 0 32px #00ffff;
+                }
+                100% {
+                    opacity: 0;
+                    transform: scale(1.2);
+                    text-shadow: none;
+                }
+            }
+        }
     </style>
 </head>
 <body>
