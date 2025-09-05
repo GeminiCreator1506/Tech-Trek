@@ -535,9 +535,66 @@
             pointer-events: none;
             z-index: 9999;
         }       */
+
+        /* Intro Screen Full Page */
+        #intro-screen {
+            position: fixed;
+            inset: 0;
+            background: #020c1b; /* dark theme background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            overflow: hidden;
+        }
+
+        /* Neon Cinematic Title */
+        .intro-title {
+            font-size: 3rem;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, #00ffff, #00ff9d);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            transform: scale(0.9);
+            text-shadow: 0 0 10px #00ffff, 0 0 20px #00ff9d, 0 0 40px #00ffff;
+            animation: titleReveal 6s ease forwards;
+        }
+
+        /* Keyframes for cinematic feel */
+        @keyframes titleReveal {
+            0% {
+                opacity: 0;
+                transform: scale(0.9);
+                text-shadow: none;
+            }
+            20% {
+                opacity: 1;
+                transform: scale(1);
+                text-shadow: 0 0 15px #00ffff, 0 0 30px #00ff9d, 0 0 60px #00ffff;
+            }
+            70% {
+                opacity: 1;
+                transform: scale(1.05);
+                text-shadow: 0 0 25px #00ffff, 0 0 50px #00ff9d, 0 0 100px #00ffff;
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1.2);
+                text-shadow: none;
+            }
+        }
     </style>
 </head>
 <body>
+    <div id="intro-screen">
+        <h1 class="intro-title">Welcome to Tech Trek Official Website</h1>
+    </div>
+
     <!-- Matrix Rain Effect -->
     <canvas id="matrix-canvas"></canvas>
 
@@ -843,10 +900,42 @@
             const seconds = Math.floor((distance / 1000) % 60);
             countdown.innerHTML = `🎯 ${days}d ${hours}h ${minutes}m ${seconds}s`;
         }, 1000);
+
+        // Intro Screen Animation
+        document.addEventListener("DOMContentLoaded", () => {
+            const intro = document.getElementById("intro-screen");
+            const main = document.getElementById("main-content");
+
+            // Remove intro after animation finishes
+            setTimeout(() => {
+                intro.style.transition = "opacity 1s ease";
+                intro.style.opacity = "0";
+                setTimeout(() => {
+                    intro.style.display = "none";
+                    main.style.display = "block";
+                }, 1000);
+            }, 6000); // matches animation duration
+            // // Step 1: Show "Welcome to"
+            // setTimeout(() => {
+            //     line1.classList.add("show");
+            // }, 500);
+            // // Step 2: Hide "Welcome to" and show "Tech Trek Official Website"
+            // setTimeout(() => {
+            //     line1.classList.add("hide");
+            //     line2.classList.add("show");
+            // }, 3500);
+            // // Step 3: Hide "Tech Trek..." and reveal main site
+            // setTimeout(() => {
+            //     line2.classList.add("hide");
+            //     intro.style.transition = "opacity 1s ease";
+            //     intro.style.opacity = "0";
+            //     setTimeout(() => {
+            //         intro.style.display = "none";
+            //         main.style.display = "block";
+            //     }, 1000);
+            // }, 6500);
+        });
     </script>
 </body>
 
 </html>
-
-
-
