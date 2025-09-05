@@ -594,7 +594,7 @@
     <div id="intro-screen">
         <h1 class="intro-title">Welcome to Tech Trek Official Website</h1>
     </div>
-
+<div id="main-content" style="display:none;">
     <!-- Matrix Rain Effect -->
     <canvas id="matrix-canvas"></canvas>
 
@@ -716,7 +716,7 @@
             <p>&copy;TECH TREK 2025 - By DPS VADODARA | All Rights Reserved.</p>
         </div>
     </footer>
-
+</div>
     <script>
         // Cursor
         // const trailCanvas = document.getElementById('cursor-trail');
@@ -905,6 +905,9 @@
         document.addEventListener("DOMContentLoaded", () => {
             const intro = document.getElementById("intro-screen");
             const main = document.getElementById("main-content");
+
+            //Show main immediately behind intro
+            main.style.display = "block";
 
             // Remove intro after animation finishes
             setTimeout(() => {
