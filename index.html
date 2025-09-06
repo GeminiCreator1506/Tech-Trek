@@ -6,6 +6,8 @@
     <title>Tech Trek - By Delhi Public School Vadodara</title>
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-auth-compat.js"></script>
     <style>
         * {
             margin: 0;
@@ -652,9 +654,86 @@
                 }
             }
         }
+
+        .auth-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #020c1b;
+            color: #00ff9d;
+            font-weight: bold;
+            border: #00ff9d solid 1px;
+        }
+        .auth-btn:hover {
+            background: #fff;
+            color: #020c1b;
+            border: #020c1b solid 1px;
+        }
+        #auth-container {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            text-align: center;
+            width: 300px;
+            z-index: 1000;
+        } 
+        #auth-container input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        #auth-container button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        #auth-container button:hover {
+            background-color: #0056b3;
+        }
+        #userStatus {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        #overlay {
+            display: none;
+            position: fixed;
+            top:0;
+            left:0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 500;
+        }
     </style>
 </head>
 <body>
+    <div id="overlay"></div>
+
+    <div id="auth-container">
+        <h2>Firebase Auth</h2>
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+        <div>
+            <button id="registerBtn">Register</button>
+            <button id="loginBtn">Login</button>
+            <button id="logoutBtn" style="display:none;">Logout</button>
+        </div>
+        <p id="userStatus">Not logged in</p>
+    </div>
+
     <div id="intro-screen">
         <h1 class="intro-title">Welcome to Tech Trek Official Website</h1>
     </div>
@@ -667,7 +746,7 @@
 
     <!-- Header & Navigation -->
     <header>
-        <audio autoplay loop>
+        <audio id="bg-music" autoplay loop>
             <source src="main_music.mp3">
         </audio>
         <div class="nav-container">
@@ -976,16 +1055,27 @@
             canvas.height = window.innerHeight;
         });
 
-        // Continuous Working of Music
-        const audio = document.getElementById('bg-music');
-        // Restore playback position
-        if(localStorage.getItem("musicTime")){
-            audio.currentTime = localStorage.getItem("musicTime");
-        }
-        // Save position before leaving page
-        window.addEventListener("beforeunload", () => {
-            localStorage.setItem("musicTime", audio.currentTime);
+        // Background Music with Autoplay Handling
+        const audio = document.getElementById("bg-music");
+        // Try autoplay muted
+        audio.muted = true;
+        audio.play().then(() => {
+            // If autoplay works muted, unmute after 1s
+            setTimeout(() => { audio.muted = false; }, 1000);
+        }).catch(() => {
+            // If autoplay blocked, wait for user interaction
+            const startMusic = () => {
+                audio.muted = false;
+                audio.play();
+                document.removeEventListener("click", startMusic);
+                document.removeEventListener("scroll", startMusic);
+                document.removeEventListener("touchstart", startMusic);
+            };
+            document.addEventListener("click", startMusic);
+            document.addEventListener("scroll", startMusic);
+            document.addEventListener("touchstart", startMusic);
         });
+
         const eventDate = new Date("August 22, 2026 08:00:00").getTime();
         const countdown = document.getElementById("countdown");
         setInterval(() => {
@@ -1058,7 +1148,96 @@
                 main.style.display = "block";
             }
         });
+        
+        // For login/logout/register mechanism
+        const firebaseConfig = {
+            apiKey: "AIzaSyCN70ANjRbuUIEv7CBRDBZS1UUl3gTM8B0",
+            authDomain: "tech-trek-website.firebaseapp.com",
+            projectId: "tech-trek-website",
+            storageBucket: "tech-trek-website.firebasestorage.app",
+            messagingSenderId: "305963277739",
+            appId: "1:305963277739:web:139017f7583c078a6c06ee",
+            measurementId: "G-ZR60E601WP"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const emailInput = document.getElementById("email");
+        const passwordInput = document.getElementById("password");
+        const registerBtn = document.getElementById("registerBtn");
+        const loginBtn = document.getElementById("loginBtn");
+        const logoutBtn = document.getElementById("logoutBtn");
+        const userStatus = document.getElementById("userStatus");
+        const authContainer = document.getElementById("auth-container");
+        const overlay = document.getElementById("overlay");
+        const headerRegisterBtn = document.getElementById("headerRegisterBtn");
+        const headerLoginBtn = document.getElementById("headerLoginBtn");
+        // Show form on header button click
+        headerRegisterBtn.addEventListener("click", () => {
+            authContainer.style.display = "block";
+            overlay.style.display = "block";
+            registerBtn.style.display = "inline-block";
+            loginBtn.style.display = "none";
+        });
+        headerLoginBtn.addEventListener("click", () => {
+            authContainer.style.display = "block";
+            overlay.style.display = "block";
+            loginBtn.style.display = "inline-block";
+            registerBtn.style.display = "none";
+        });
+        // Hide form when clicking overlay
+        overlay.addEventListener("click", () => {
+            authContainer.style.display = "none";
+            overlay.style.display = "none";
+        });
+        // Register
+        registerBtn.addEventListener("click", () => {
+            const email = emailInput.value;
+            const password = passwordInput.value;
+            auth.createUserWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                userStatus.innerText = `Registered and logged in as ${userCredential.user.email}`;
+                authContainer.style.display = "none";
+                overlay.style.display = "none";
+            })
+            .catch((error) => {
+                userStatus.innerText = `Error: ${error.message}`;
+            });
+        });
+        // Login
+        loginBtn.addEventListener("click", () => {
+            const email = emailInput.value;
+            const password = passwordInput.value;
+            auth.signInWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                userStatus.innerText = `Logged in as ${userCredential.user.email}`;
+                authContainer.style.display = "none";
+                overlay.style.display = "none";
+            })
+            .catch((error) => {
+                userStatus.innerText = `Error: ${error.message}`;
+            });
+        });
+        // Logout
+        logoutBtn.addEventListener("click", () => {
+            auth.signOut().then(() => {
+                userStatus.innerText = "Logged out";
+            });
+        });
+        // Monitor auth state
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                headerLoginBtn.style.display = "none";
+                headerRegisterBtn.style.display = "none";
+                logoutBtn.style.display = "inline-block";
+                userStatus.innerText = `Logged in as ${user.email}`;
+            } else {
+                headerLoginBtn.style.display = "inline-block";
+                headerRegisterBtn.style.display = "inline-block";
+                logoutBtn.style.display = "none";
+                userStatus.innerText = "Not logged in";
+            }
+        });
     </script>
 </body>
-
 </html>
