@@ -719,6 +719,29 @@
             box-shadow: 0 0 6px rgba(0, 255, 157, 0.6);
             white-space: nowrap;
         }
+
+        /* Typing Effect */
+        #typing-text {
+            font-size: 2.8rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, #00ffff, #00ff9d);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 1.5px #00ffff, 0 0 8px #00ff9d;
+            white-space: nowrap;
+        }
+        .cursor {
+            display: inline-block;
+            font-weight: bold;
+            font-size: 2.8rem;
+            color: #00ffff;
+            animation: blink 0.8s infinite;
+        }
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
     </style>
 </head>
 <body>
@@ -751,7 +774,9 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-content">
-            <h1>TECH TREK SCHEDULES</h1>
+            <h1 class="hero-title">
+                <span id="typing-text"></span><span class="cursor">|</span>
+            </h1>
             <p>Here, you will find the schedules for all upcoming and conducted Tech Trek events.</p>
             <p>This is the platform where you will Navigate, Innovate and Dominate all at once. For further assistance, please do contact our team.</p>
             <p><a href="#schedule">Upcoming Event Date: August 23, 2026</a> | DPS VADODARA</p>
@@ -927,6 +952,38 @@
         // Save position before leaving page
         window.addEventListener("beforeunload", () => {
             localStorage.setItem("musicTime", audio.currentTime);
+        });
+
+        // Typing Effect
+        document.addEventListener("DOMContentLoaded", () => {
+            const text = "Tech Trek Schedule"; // Text to animate
+            const typingElement = document.getElementById("typing-text");
+            let i = 0;
+            let isDeleting = false;
+            function typeEffect() {
+                if (!isDeleting && i < text.length) {
+                    // Typing forward
+                    typingElement.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typeEffect, 120);
+                } 
+                else if (isDeleting && i > 0) {
+                // Deleting backwards
+                typingElement.textContent = text.substring(0, i - 1);
+                i--;
+                setTimeout(typeEffect, 80);
+                } 
+                else if (i === text.length) {
+                    // Pause before deleting
+                    setTimeout(() => { isDeleting = true; typeEffect(); }, 1000);
+                } 
+                else if (i === 0 && isDeleting) {
+                    // Restart typing
+                    isDeleting = false;
+                    setTimeout(typeEffect, 500);
+                }
+            }
+            typeEffect();
         });
     </script>
 </body>
