@@ -681,6 +681,10 @@
                 <li><a href="gallery.html">Gallery</a></li>
                 <li><a href="#contact">Contact Us</a></li>
                 <li><a href="#contact">Team</a></li>
+                <li id="auth-buttons">
+                    <button id="login-btn" class="auth-btn">Login</button>
+                    <button id="logout-btn" class="auth-btn" style="display: none;"></button>
+                </li>
             </ul>
             <div class="hamburger">
                 <i class="fas fa-bars"></i>
@@ -781,6 +785,35 @@
         </div>
     </footer>
 </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyCN70ANjRbuUIEv7CBRDBZS1UUl3gTM8B0",
+            authDomain: "tech-trek-website.firebaseapp.com",
+            projectId: "tech-trek-website",
+            storageBucket: "tech-trek-website.firebasestorage.app",
+            messagingSenderId: "305963277739",
+            appId: "1:305963277739:web:139017f7583c078a6c06ee",
+            measurementId: "G-ZR60E601WP"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    </script>
+
     <script>
         // Cursor
         // const trailCanvas = document.getElementById('cursor-trail');
@@ -1029,4 +1062,3 @@
 </body>
 
 </html>
-
