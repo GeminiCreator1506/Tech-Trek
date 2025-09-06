@@ -6,8 +6,6 @@
     <title>Tech Trek - By Delhi Public School Vadodara</title>
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-auth-compat.js"></script>
     <style>
         * {
             margin: 0;
@@ -720,20 +718,6 @@
     </style>
 </head>
 <body>
-    <div id="overlay"></div>
-
-    <div id="auth-container">
-        <h2>Firebase Auth</h2>
-        <input type="email" id="email" placeholder="Email">
-        <input type="password" id="password" placeholder="Password">
-        <div>
-            <button id="registerBtn">Register</button>
-            <button id="loginBtn">Login</button>
-            <button id="logoutBtn" style="display:none;">Logout</button>
-        </div>
-        <p id="userStatus">Not logged in</p>
-    </div>
-
     <div id="intro-screen">
         <h1 class="intro-title">Welcome to Tech Trek Official Website</h1>
     </div>
@@ -760,10 +744,6 @@
                 <li><a href="gallery.html">Gallery</a></li>
                 <li><a href="#contact">Contact Us</a></li>
                 <li><a href="#contact">Team</a></li>
-                <li id="auth-buttons">
-                    <button id="login-btn" class="auth-btn">Login</button>
-                    <button id="logout-btn" class="auth-btn" style="display: none;"></button>
-                </li>
             </ul>
             <div class="hamburger">
                 <i class="fas fa-bars"></i>
@@ -864,34 +844,6 @@
         </div>
     </footer>
 </div>
-
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-analytics.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-            apiKey: "AIzaSyCN70ANjRbuUIEv7CBRDBZS1UUl3gTM8B0",
-            authDomain: "tech-trek-website.firebaseapp.com",
-            projectId: "tech-trek-website",
-            storageBucket: "tech-trek-website.firebasestorage.app",
-            messagingSenderId: "305963277739",
-            appId: "1:305963277739:web:139017f7583c078a6c06ee",
-            measurementId: "G-ZR60E601WP"
-        };
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-    </script>
-
     <script>
         // Cursor
         // const trailCanvas = document.getElementById('cursor-trail');
@@ -1145,87 +1097,6 @@
                 // Skip intro → directly show main
                 intro.style.display = "none";
                 main.style.display = "block";
-            }
-        });
-        
-        // For login/logout/register mechanism
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const emailInput = document.getElementById("email");
-        const passwordInput = document.getElementById("password");
-        const registerBtn = document.getElementById("registerBtn");
-        const loginBtn = document.getElementById("loginBtn");
-        const logoutBtn = document.getElementById("logoutBtn");
-        const userStatus = document.getElementById("userStatus");
-        const authContainer = document.getElementById("auth-container");
-        const overlay = document.getElementById("overlay");
-        const headerRegisterBtn = document.getElementById("headerRegisterBtn");
-        const headerLoginBtn = document.getElementById("headerLoginBtn");
-        // Show form on header button click
-        headerRegisterBtn.addEventListener("click", () => {
-            authContainer.style.display = "block";
-            overlay.style.display = "block";
-            registerBtn.style.display = "inline-block";
-            loginBtn.style.display = "none";
-        });
-        headerLoginBtn.addEventListener("click", () => {
-            authContainer.style.display = "block";
-            overlay.style.display = "block";
-            loginBtn.style.display = "inline-block";
-            registerBtn.style.display = "none";
-        });
-        // Hide form when clicking overlay
-        overlay.addEventListener("click", () => {
-            authContainer.style.display = "none";
-            overlay.style.display = "none";
-        });
-        // Register
-        registerBtn.addEventListener("click", () => {
-            const email = emailInput.value;
-            const password = passwordInput.value;
-            auth.createUserWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-                userStatus.innerText = `Registered and logged in as ${userCredential.user.email}`;
-                authContainer.style.display = "none";
-                overlay.style.display = "none";
-            })
-            .catch((error) => {
-                userStatus.innerText = `Error: ${error.message}`;
-            });
-        });
-        // Login
-        loginBtn.addEventListener("click", () => {
-            const email = emailInput.value;
-            const password = passwordInput.value;
-            auth.signInWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-                userStatus.innerText = `Logged in as ${userCredential.user.email}`;
-                authContainer.style.display = "none";
-                overlay.style.display = "none";
-            })
-            .catch((error) => {
-                userStatus.innerText = `Error: ${error.message}`;
-            });
-        });
-        // Logout
-        logoutBtn.addEventListener("click", () => {
-            auth.signOut().then(() => {
-                userStatus.innerText = "Logged out";
-            });
-        });
-        // Monitor auth state
-        auth.onAuthStateChanged((user) => {
-            if (user) {
-                headerLoginBtn.style.display = "none";
-                headerRegisterBtn.style.display = "none";
-                logoutBtn.style.display = "inline-block";
-                userStatus.innerText = `Logged in as ${user.email}`;
-            } else {
-                headerLoginBtn.style.display = "inline-block";
-                headerRegisterBtn.style.display = "inline-block";
-                logoutBtn.style.display = "none";
-                userStatus.innerText = "Not logged in";
             }
         });
     </script>
