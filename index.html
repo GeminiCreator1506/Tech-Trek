@@ -1002,7 +1002,31 @@
             //     }, 1000);
             // }, 6500);
         });
+        document.addEventListener("DOMContentLoaded", () => {
+            const intro = document.getElementById("intro-screen");
+            const main = document.getElementById("main-content");
+
+            // Check if intro has already been shown in this session
+            if (!sessionStorage.getItem("introShown")) {
+            // Show intro
+                setTimeout(() => {
+                    intro.style.transition = "opacity 1s ease";
+                    intro.style.opacity = "0";
+                    setTimeout(() => {
+                        intro.style.display = "none";
+                        main.style.display = "block";
+                        // Mark intro as shown for this session
+                        sessionStorage.setItem("introShown", "true");
+                    }, 1000);
+                }, 6000);
+            } else {
+                // Skip intro → directly show main
+                intro.style.display = "none";
+                main.style.display = "block";
+            }
+        });
     </script>
 </body>
 
 </html>
+
