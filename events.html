@@ -730,17 +730,27 @@
             -webkit-text-fill-color: transparent;
             text-shadow: 0 0 1.5px #00ffff, 0 0 8px #00ff9d;
             white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+            max-width: 100%;
         }
         .cursor {
+            vertical-align: bottom;
             display: inline-block;
-            font-weight: bold;
-            font-size: 2.8rem;
+            width: 2px;
+            height: 1em;
             color: #00ffff;
+            margin-left: 2px;
             animation: blink 0.8s infinite;
         }
         @keyframes blink {
             0%, 50% { opacity: 1; }
             51%, 100% { opacity: 0; }
+        }
+        @media (max-width: 768px) {
+            #typing-text {
+                font-size: 1.5rem; /* smaller for phones */
+            }
         }
     </style>
 </head>
@@ -775,7 +785,7 @@
     <section class="hero" id="home">
         <div class="hero-content">
             <h1 class="hero-title">
-                <span id="typing-text"></span><span class="cursor">|</span>
+                <span id="typing-text"></span><span class="cursor"></span>
             </h1>
             <p>Here, you will find the schedules for all upcoming and conducted Tech Trek events.</p>
             <p>This is the platform where you will Navigate, Innovate and Dominate all at once. For further assistance, please do contact our team.</p>
