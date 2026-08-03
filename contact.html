@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>CONTACT | TECH TREK 3.0</title>
+  <meta name="description" content="Contact Tech Trek 3.0 — Delhi Public School Vadodara. Map, address, phone, and Instagram." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&family=Orbitron:wght@600;800;900&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="brochure_style.css" />
+  <style>
+    /* override + contact specific */
+    .contact-hero .hero-desc { background: rgba(0,0,0,0.6); border-left: 4px solid var(--neon-cyan); }
+    .map-card { background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 1.2rem; backdrop-filter: blur(8px); transition: box-shadow 0.3s; }
+    .map-card iframe { width: 100%; height: 320px; border: 0; display: block; filter: invert(0.88) hue-rotate(160deg) saturate(2); border: 1px solid var(--matrix-core); }
+    .contact-details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2.2rem; }
+    @media (max-width: 700px) { .contact-details-grid { grid-template-columns: 1fr; } }
+    .info-panel { background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 1.8rem; backdrop-filter: blur(8px); }
+    .info-panel h4 { font-family: var(--font-head); color: var(--neon-cyan); letter-spacing: 2px; margin-bottom: 0.8rem; border-bottom: 1px dashed var(--glass-border); padding-bottom: 0.5rem; }
+    .info-panel .addr-line { font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-steel); line-height: 1.7; }
+    .info-panel .phone-link { color: var(--matrix-core); text-decoration: none; font-family: var(--font-mono); }
+    .info-panel .phone-link:hover { text-shadow: 0 0 10px var(--matrix-core); }
+    .social-row { display: flex; align-items: center; gap: 1.2rem; margin-top: 1.5rem; flex-wrap: wrap; }
+    .social-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: transparent; border: 1px solid var(--glass-border); padding: 0.6rem 1.4rem; color: var(--text-bright); font-family: var(--font-mono); font-size: 0.8rem; text-decoration: none; transition: 0.25s; letter-spacing: 1px; }
+    .social-btn svg { width: 22px; height: 22px; fill: currentColor; }
+    .social-btn:hover { border-color: var(--neon-cyan); color: var(--neon-cyan); box-shadow: 0 0 20px rgba(0,229,255,0.15); transform: translateY(-2px); }
+    .instagram-btn { border-color: #d62976; color: #d62976; }
+    .instagram-btn:hover { border-color: #d62976; box-shadow: 0 0 25px rgba(214,41,118,0.3); color: #fff; }
+  </style>
+</head>
+<body>
+  <div id="boot-screen"><div class="terminal-frame"><div class="terminal-output" id="terminal-output"></div></div><button class="skip-btn" id="skip-btn">[ SKIP INTRO ]</button></div>
+  <canvas id="grid-canvas"></canvas>
+
+  <nav class="navbar">
+    <a href="index.html" class="brand-logo">TECH<span>TREK</span></a>
+    <button class="mobile-toggle" id="mobile-toggle">☰</button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html#concept">GRID</a></li>
+      <li><a href="tracks.html">TRACKS</a></li>
+      <li><a href="brochure.html">BROCHURE</a></li>
+      <li><a href="gallery.html">GALLERY</a></li>
+      <li><a href="contact.html" class="active">CONTACT</a></li>
+      <li><a href="aboutus.html">ABOUT US</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero hero-compact contact-hero" id="hero">
+    <div class="hud-label">NODE // CONNECT</div>
+    <h1 class="hero-title">CONTACT US</h1>
+    <div class="hero-tagline">REACH THE GRID.</div>
+    <p class="hero-desc">Delhi Public School Vadodara — where innovation meets collaboration. Drop us a line or find us on the map.</p>
+  </section>
+
+  <!-- MAP + ADDRESS -->
+  <section id="map-section">
+    <div class="section-header">
+      <div class="hud-label">LOG_ENTRY // LOCATION</div>
+      <h2 class="section-title">FIND US</h2>
+    </div>
+    <div class="map-card">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3692.276905914361!2d73.16301227636443!3d22.267498179710213!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395fcfa400000001%3A0xdeb454862389eb08!2sDelhi%20Public%20School%20Vadodara!5e0!3m2!1sen!2sin!4v1785680321708!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    </div>
+    <div class="contact-details-grid" style="margin-top:2rem;">
+      <div class="info-panel">
+        <h4>ADDRESS</h4>
+        <div class="addr-line">
+          DELHI PUBLIC SCHOOL,<br />
+          TRANSPEK-VADSAR ROAD,<br />
+          KALALI, VADODARA 390012
+        </div>
+        <div style="margin-top:1.2rem;">
+          <span style="font-family:var(--font-mono); color:var(--text-steel); font-size:0.75rem; letter-spacing:1px;">FAX</span>
+          <div style="font-family:var(--font-mono); color:var(--text-steel);">+91-0265-2681573</div>
+        </div>
+        <div style="margin-top:0.8rem;">
+          <span style="font-family:var(--font-mono); color:var(--text-steel); font-size:0.75rem; letter-spacing:1px;">E-MAIL</span>
+          <div style="font-family:var(--font-mono); color:var(--neon-cyan);">info@dpsvadodara.com</div>
+        </div>
+      </div>
+      <div class="info-panel">
+        <h4>CONTACT</h4>
+        <div style="margin-bottom:1rem;">
+          <span style="font-family:var(--font-mono); color:var(--text-steel); font-size:0.7rem; letter-spacing:1px;">HEADMISTRESS</span>
+          <div style="font-family:var(--font-head); color:#fff;">Mrs. Archana Jaimini</div>
+          <a href="tel:+919427277816" class="phone-link">+91 94272 77816</a>
+        </div>
+        <div>
+          <span style="font-family:var(--font-mono); color:var(--text-steel); font-size:0.7rem; letter-spacing:1px;">EVENT CO-ORDINATOR</span>
+          <div style="font-family:var(--font-head); color:#fff;">Mr. Deepesh Khatri</div>
+          <a href="tel:+918141719007" class="phone-link">+91 81417 19007</a>
+        </div>
+        <div class="social-row">
+          <a href="https://instagram.com/techtrekdpsv" class="social-btn instagram-btn" target="_blank" rel="noopener noreferrer"> 
+  <svg viewBox="0 0 24 24">
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+  </svg> 
+  <span>@techtrek_dpsv</span> 
+</a>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- quick registration link -->
+  <section id="reg-cta" style="text-align:center; padding:3rem 5%;">
+    <div class="section-header"><h2 class="section-title" style="font-size:1.8rem;">REGISTER FOR TECH TREK 3.0</h2></div>
+    <div class="info-card" style="max-width:600px; margin:0 auto;">
+      <p style="color:var(--text-steel);">Scan the QR or click below to fill the Google Form registration.</p>
+      <div style="margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:1rem; justify-content:center;">
+        <a href="registration.html" class="btn btn-primary">[ REGISTER NOW ]</a>
+        <a href="brochure.html" class="btn btn-secondary">[ VIEW BROCHURE ]</a>
+      </div>
+    </div>
+  </section>
+
+  <footer><div class="footer-bottom" style="justify-content:center; padding:2rem; gap:1.5rem; flex-wrap:wrap; text-align:center;">
+    <span>22 AUGUST 2026 · SATURDAY · INNOVATE. CREATE. INSPIRE.</span>
+    <a href="index.html" style="color:var(--matrix-core);">[ ← RETURN TO MAIN WEBPAGE ]</a>
+  </div></footer>
+
+  <script>
+    (function() {
+      const bootScreen = document.getElementById("boot-screen");
+      const terminalOutput = document.getElementById("terminal-output");
+      const skipBtn = document.getElementById("skip-btn");
+      const bootLines = ["INITIALIZING TECH TREK SYSTEM...","CONNECTING TO THE GRID...","LOADING CONTACT NODE...","SYSTEM ONLINE.","WELCOME, TRAVELER."];
+      if (sessionStorage.getItem("techTrekBooted") === "true") {
+        bootScreen.classList.add("hidden");
+      } else {
+        let lineIndex = 0;
+        const printLine = () => {
+          if (lineIndex < bootLines.length) {
+            const p = document.createElement("p");
+            p.className = "terminal-line";
+            p.textContent = bootLines[lineIndex];
+            terminalOutput.appendChild(p);
+            lineIndex++;
+            setTimeout(printLine, Math.random() * 200 + 150);
+          } else {
+            setTimeout(() => { bootScreen.classList.add("hidden"); sessionStorage.setItem("techTrekBooted", "true"); }, 800);
+          }
+        };
+        skipBtn.addEventListener("click", () => { bootScreen.classList.add("hidden"); sessionStorage.setItem("techTrekBooted", "true"); });
+        setTimeout(printLine, 400);
+      }
+
+      const canvas = document.getElementById("grid-canvas");
+      const ctx = canvas.getContext("2d");
+      let width, height, columns, drops;
+      const chars = "TECHTREKDPSV2026";
+      const charArray = chars.split("");
+      const fontSize = 15;
+      let speed = 50;
+      function setupCanvas() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        columns = Math.floor(width / fontSize);
+        drops = Array(columns).fill(1);
+      }
+      setupCanvas();
+      let mouseX = -100, mouseY = -100;
+      window.addEventListener("mousemove", e => { mouseX = e.clientX; mouseY = e.clientY; });
+      function draw() {
+        ctx.fillStyle = "rgba(2, 4, 3, 0.1)";
+        ctx.fillRect(0, 0, width, height);
+        ctx.font = `${fontSize}px 'JetBrains Mono'`;
+        for (let i = 0; i < drops.length; i++) {
+          const text = charArray[Math.floor(Math.random() * charArray.length)];
+          const x = i * fontSize;
+          const y = drops[i] * fontSize;
+          const dist = Math.hypot(x - mouseX, y - mouseY);
+          if (dist < 110) { ctx.fillStyle = "#00e5ff"; ctx.shadowBlur = 12; }
+          else if (Math.random() > 0.97) { ctx.fillStyle = "#ffffff"; ctx.shadowBlur = 6; }
+          else { ctx.fillStyle = "#00ff66"; ctx.shadowBlur = 0; }
+          ctx.fillText(text, x, y);
+          ctx.shadowBlur = 0;
+          if (y > height && Math.random() > 0.975) drops[i] = 0;
+          drops[i]++;
+        }
+        setTimeout(() => { requestAnimationFrame(draw); }, speed);
+      }
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) draw();
+      window.addEventListener("resize", () => { clearTimeout(window.resized); window.resized = setTimeout(setupCanvas, 150); });
+
+      document.getElementById("mobile-toggle").addEventListener("click", () => {
+        document.getElementById("nav-links").classList.toggle("active");
+      });
+    })();
+  </script>
+</body>
+</html>   

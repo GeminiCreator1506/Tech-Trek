@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>PIXEL FORGE | TECH TREK 3.0</title>
+  <meta name="description" content="Pixel Forge — Tech Trek 3.0's on-the-spot tech thumbnail design challenge.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&family=Orbitron:wght@600;800;900&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="brochure_style.css">
+</head>
+<body>
+  <div id="boot-screen">
+    <div class="terminal-frame">
+      <div class="terminal-output" id="terminal-output"></div>
+    </div>
+    <button class="skip-btn" id="skip-btn">[ SKIP INTRO ]</button>
+  </div>
+
+  <canvas id="grid-canvas"></canvas>
+
+  <nav class="navbar">
+    <a href="index.html" class="brand-logo">TECH<span>TREK</span></a>
+    <button class="mobile-toggle" id="mobile-toggle">☰</button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html#concept">GRID</a></li>
+      <li><a href="tracks.html" class="active">TRACKS</a></li>
+      <li><a href="brochure.html">BROCHURE</a></li>
+      <li><a href="gallery.html">GALLERY</a></li>
+      <li><a href="contact.html">CONTACT</a></li>
+      <li><a href="aboutus.html">ABOUT US</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero hero-compact" id="hero">
+    <div class="hud-label">TRACK 02 // DESIGN</div>
+    <h1 class="hero-title">PIXEL FORGE</h1>
+    <div class="hero-tagline">DESIGN. CLICK. CAPTIVATE.</div>
+    <div class="cta-group" style="margin-top:2rem;">
+      <a href="registration.html" class="btn btn-primary">[ REGISTER FOR PIXEL FORGE ]</a>
+    </div>
+  </section>
+
+  <section id="overview">
+    <a href="tracks.html" class="back-link">[ ← BACK TO TRACKS ]</a>
+
+    <div class="software-row">
+      <div class="software-chip">Ps</div>
+      <div class="software-chip">Pr</div>
+      <div class="software-chip">Ae</div>
+    </div>
+
+    <div class="info-card">
+      <p>Pixel Forge is a live, on-the-spot tech thumbnail design challenge. Teams are handed a short video on the day of the event and have to design a compelling 16:9 thumbnail for it within the time limit — no prep, no pre-made assets, just raw design instinct under pressure. It's a test of composition, visual storytelling, and how fast you can turn a rough clip into something people would actually click on.</p>
+    </div>
+
+    <div class="section-header" style="margin-top:3.5rem; margin-bottom:2.5rem;">
+      <h3 class="section-title" style="font-size:1.6rem;">SOFTWARE GUIDE</h3>
+      <p style="color: var(--text-steel);">What each tool is for, so you know what to reach for</p>
+    </div>
+    <div class="spec-grid">
+      <div class="spec-item">
+        <div class="spec-label">Ps — Adobe Photoshop</div>
+        <div class="spec-value">Image editing and compositing. Best for the actual thumbnail layout — cropping the frame, layering text and graphics, color grading, cutouts.</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-label">Pr — Adobe Premiere Pro</div>
+        <div class="spec-value">Video editing. Useful for scrubbing through the source video and pulling the exact frame or moment you want to build the thumbnail around.</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-label">Ae — Adobe After Effects</div>
+        <div class="spec-value">Motion graphics and effects. Handy if you want to add polish like glows, blur, or layered depth to text and graphic elements.</div>
+      </div>
+    </div>
+    <p style="text-align:center; color:var(--text-steel); font-family:var(--font-mono); font-size:0.8rem; margin-top:1.6rem; letter-spacing:0.5px;">
+      Any other offline design tool is also allowed — GIMP, Krita, Affinity Photo, whatever you're fastest in. Resources are downloaded in advance; no internet access during the round.
+    </p>
+
+    <div class="section-header" style="margin-top:3.5rem; margin-bottom:2.5rem;">
+      <h3 class="section-title" style="font-size:1.6rem;">EVENT SPECS</h3>
+    </div>
+    <div class="spec-grid">
+      <div class="spec-item"><div class="spec-label">Aspect Ratio</div><div class="spec-value">16:9</div></div>
+      <div class="spec-item"><div class="spec-label">Duration</div><div class="spec-value">1 Hour</div></div>
+      <div class="spec-item"><div class="spec-label">Software</div><div class="spec-value">Any offline tool provided, with resources downloaded</div></div>
+      <div class="spec-item"><div class="spec-label">Team Size</div><div class="spec-value">Maximum 2 members per team</div></div>
+    </div>
+
+    <p style="text-align:center; color:var(--neon-cyan); font-family:var(--font-mono); font-size:0.85rem; margin-top:2.5rem; letter-spacing:1px;">EVERY CLICK TELLS A STORY.</p>
+  </section>
+
+  <footer>
+    <div class="footer-bottom" style="justify-content:center; padding:2rem; gap:1.5rem; flex-wrap:wrap; text-align:center;">
+      <span>22 AUGUST 2026 · SATURDAY</span>
+      <a href="tracks.html" style="color:var(--matrix-core);">[ ← BACK TO TRACKS ]</a>
+      <a href="index.html" style="color:var(--matrix-core);">[ HOME ]</a>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      const bootScreen = document.getElementById("boot-screen");
+      const terminalOutput = document.getElementById("terminal-output");
+      const skipBtn = document.getElementById("skip-btn");
+      const bootLines = [
+        "INITIALIZING TECH TREK SYSTEM...",
+        "LOADING TRACK // PIXEL FORGE...",
+        "BOOTING CREATIVE ENGINE...",
+        "SYSTEM ONLINE.",
+        "WELCOME, TRAVELER."
+      ];
+      if (sessionStorage.getItem("techTrekBooted") === "true") {
+        bootScreen.classList.add("hidden");
+      } else {
+        let lineIndex = 0;
+        const printLine = () => {
+          if (lineIndex < bootLines.length) {
+            const p = document.createElement("p");
+            p.className = "terminal-line";
+            p.textContent = bootLines[lineIndex];
+            terminalOutput.appendChild(p);
+            lineIndex++;
+            setTimeout(printLine, Math.random() * 200 + 150);
+          } else {
+            setTimeout(() => { bootScreen.classList.add("hidden"); sessionStorage.setItem("techTrekBooted", "true"); }, 800);
+          }
+        };
+        skipBtn.addEventListener("click", () => { bootScreen.classList.add("hidden"); sessionStorage.setItem("techTrekBooted", "true"); });
+        setTimeout(printLine, 400);
+      }
+
+      const canvas = document.getElementById("grid-canvas");
+      const ctx = canvas.getContext("2d");
+      let width, height, columns, drops;
+      const chars = "TECHTREKDPSV2026";
+      const charArray = chars.split("");
+      const fontSize = 15;
+      let speed = 50;
+      function setupCanvas() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        columns = Math.floor(width / fontSize);
+        drops = Array(columns).fill(1);
+      }
+      setupCanvas();
+      let mouseX = -100, mouseY = -100;
+      window.addEventListener("mousemove", e => { mouseX = e.clientX; mouseY = e.clientY; });
+      function draw() {
+        ctx.fillStyle = "rgba(2, 4, 3, 0.1)";
+        ctx.fillRect(0, 0, width, height);
+        ctx.font = `${fontSize}px 'JetBrains Mono'`;
+        for (let i = 0; i < drops.length; i++) {
+          const text = charArray[Math.floor(Math.random() * charArray.length)];
+          const x = i * fontSize;
+          const y = drops[i] * fontSize;
+          const dist = Math.hypot(x - mouseX, y - mouseY);
+          if (dist < 110) {
+            ctx.fillStyle = "#00e5ff";
+            ctx.shadowBlur = 12;
+          } else if (Math.random() > 0.97) {
+            ctx.fillStyle = "#ffffff";
+            ctx.shadowBlur = 6;
+          } else {
+            ctx.fillStyle = "#00ff66";
+            ctx.shadowBlur = 0;
+          }
+          ctx.fillText(text, x, y);
+          ctx.shadowBlur = 0;
+          if (y > height && Math.random() > 0.975) drops[i] = 0;
+          drops[i]++;
+        }
+        setTimeout(() => { requestAnimationFrame(draw); }, speed);
+      }
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) draw();
+      window.addEventListener("resize", () => { clearTimeout(window.resized); window.resized = setTimeout(setupCanvas, 150); });
+
+      document.getElementById("mobile-toggle").addEventListener("click", () => {
+        document.getElementById("nav-links").classList.toggle("active");
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>ABOUT | TECH TREK 3.0</title>
+  <meta name="description" content="About the Tech Trek 3.0 team — the minds behind the grid.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&family=Orbitron:wght@600;800;900&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="brochure_style.css">
+  <style>
+    /* page-specific: team showcase — not part of the shared stylesheet */
+    .team-description {
+      max-width: 850px; margin: 0 auto 4rem; background: var(--glass-bg);
+      border: 1px solid var(--glass-border); padding: 2rem 2.2rem;
+      backdrop-filter: blur(10px); color: var(--text-steel); line-height: 1.8;
+    }
+    .team-description strong { color: var(--matrix-core); }
+    .subtitle-glow { color: var(--text-steel); }
+
+    .interactive-team-showcase {
+      display: grid; grid-template-columns: 1fr 1.3fr 1fr; gap: 1.5rem;
+      max-width: 1100px; margin: 0 auto; align-items: start;
+    }
+    .side-panel { display: flex; flex-direction: column; gap: 1rem; }
+    .center-panel { display: flex; justify-content: center; }
+
+    .team-card {
+      background: var(--glass-bg); border: 1px solid var(--glass-border);
+      padding: 1.4rem; text-align: center; backdrop-filter: blur(8px);
+      transition: border-color 0.25s ease, transform 0.25s ease;
+    }
+    .side-card { cursor: pointer; }
+    .side-card:hover { border-color: var(--neon-cyan); transform: translateY(-3px); box-shadow: 0 0 20px rgba(0,229,255,0.15); }
+    .center-card { width: 100%; max-width: 340px; border-color: var(--electric-violet); transition: opacity 0.18s ease; }
+
+    .avatar {
+      width: 64px; height: 64px; margin: 0 auto 0.9rem; border-radius: 50%;
+      background: rgba(0,255,102,0.08); border: 1px solid var(--glass-border);
+      overflow: hidden;
+    }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease; }
+    .side-card:hover .avatar img { transform: scale(1.08); }
+
+    .spotlight-avatar {
+      width: 140px; height: 140px; border-color: var(--electric-violet);
+      box-shadow: 0 0 30px rgba(180,77,255,0.25); cursor: zoom-in; position: relative;
+    }
+    .spotlight-avatar::after {
+      content: "⤢"; position: absolute; bottom: 4px; right: 4px; width: 22px; height: 22px;
+      background: rgba(0,0,0,0.6); border: 1px solid var(--glass-border); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: #fff;
+      pointer-events: none;
+    }
+    .avatar-initials { font-family: var(--font-head); font-weight: 700; color: var(--matrix-core); }
+
+    .team-card .role { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 1.5px; color: var(--neon-cyan); text-transform: uppercase; }
+    .team-card .name { font-family: var(--font-head); font-size: 1rem; color: #fff; margin-top: 0.3rem; }
+    .hidden-bio { display: none; }
+    .spotlight-bio { color: var(--text-steel); font-size: 0.9rem; line-height: 1.7; margin-top: 1rem; }
+
+    /* lightbox for the enlarged photo */
+    #photo-lightbox {
+      position: fixed; inset: 0; background: rgba(2,4,3,0.92); z-index: 500;
+      display: none; align-items: center; justify-content: center; cursor: zoom-out;
+      backdrop-filter: blur(6px);
+    }
+    #photo-lightbox.open { display: flex; }
+    #photo-lightbox img {
+      width: min(420px, 80vw); height: min(420px, 80vw); object-fit: cover;
+      border-radius: 50%; border: 2px solid var(--electric-violet);
+      box-shadow: 0 0 60px rgba(180,77,255,0.35);
+    }
+    #photo-lightbox .lb-caption {
+      position: absolute; bottom: 8%; left: 50%; transform: translateX(-50%);
+      text-align: center; font-family: var(--font-mono); color: var(--text-steel); font-size: 0.85rem; letter-spacing: 1px;
+    }
+    #photo-lightbox .lb-close {
+      position: absolute; top: 6%; right: 6%; font-family: var(--font-mono); color: var(--text-steel);
+      font-size: 0.8rem; letter-spacing: 1px; border: 1px solid var(--glass-border); padding: 0.5rem 1rem;
+    }
+
+    @media (max-width: 900px) {
+      .interactive-team-showcase { grid-template-columns: 1fr; }
+      .center-panel { order: -1; }
+    }
+  </style>
+</head>
+<body>
+  <div id="boot-screen">
+    <div class="terminal-frame">
+      <div class="terminal-output" id="terminal-output"></div>
+    </div>
+    <button class="skip-btn" id="skip-btn">[ SKIP INTRO ]</button>
+  </div>
+
+  <canvas id="grid-canvas"></canvas>
+
+  <nav class="navbar">
+    <a href="index.html" class="brand-logo">TECH<span>TREK</span></a>
+    <button class="mobile-toggle" id="mobile-toggle">☰</button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html#concept">GRID</a></li>
+      <li><a href="tracks.html">TRACKS</a></li>
+      <li><a href="brochure.html">BROCHURE</a></li>
+      <li><a href="gallery.html">GALLERY</a></li>
+      <li><a href="contact.html">CONTACT</a></li>
+      <li><a href="aboutus.html" class="active">ABOUT US</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero hero-compact" id="hero">
+    <div class="hud-label">NODE // ORIGIN</div>
+    <h1 class="hero-title">ABOUT THE GRID</h1>
+    <div class="hero-tagline">THE MINDS BEHIND TECH TREK 3.0</div>
+  </section>
+
+  <!-- about description -->
+  <section id="team-message">
+    <div class="team-description">
+      <span style="color:var(--matrix-core); font-family:var(--font-mono); font-size:0.8rem; letter-spacing:3px;">// MATRIX CORE //</span><br><br>
+      In the heart of the system, behind every flicker of code and surge of innovation, operates the Core Committee of Tech Trek 3.0 — a collective not just of organizers, but of architects of experience. Moving like unseen processes within a matrix, we synchronize design, technology, and execution to construct something far beyond a conventional event. Every pixel, every interaction, every challenge is engineered with intent.
+
+We are thinkers, builders, and disruptors — students who refuse to settle for the surface layer. Our work lives in the intersection of logic and creativity, where ideas are stress-tested, refined, and deployed into reality. From orchestrating high-stakes competitions to crafting immersive digital environments, we function as a unified system, each node critical, each decision calculated.
+
+This isn’t just an event. It’s a simulation of possibility.
+
+And we are the ones running it.
+
+      <br><br>
+      <strong>INNOVATE. INSPIRE. IGNITE.</strong> — this is our protocol.
+    </div>
+  </section>
+
+  <!-- team showcase -->
+  <section id="team">
+    <div class="section-header">
+      <div class="hud-label">LOG_ENTRY // CREW</div>
+      <h2 class="section-title">CORE COMMITTEE</h2>
+      <p class="subtitle-glow" style="font-size:0.95rem;">click a member to view profile</p>
+    </div>
+
+    <div class="interactive-team-showcase">
+      <div class="side-panel left-panel">
+        <div class="team-card side-card" onclick="selectMember(this)" data-img="images/team/aj.jpg">
+          <div class="avatar"><img src="images/team/aj.jpg" alt="Mrs. Archana J."></div>
+          <div class="role">Headmistress</div>
+          <div class="name">Mrs. Archana J.</div>
+          <div class="hidden-bio">"Oracle of the obstacle course" — master of logistics, ensuring every track runs flawlessly..</div>
+        </div>
+        <div class="team-card side-card" onclick="selectMember(this)" data-img="images/team/dk.jpg">
+          <div class="avatar"><img src="images/team/dk.jpg" alt="Mr. Deepesh K."></div>
+          <div class="role">Event Coordinator</div>
+          <div class="name">Mr. Deepesh K.</div>
+          <div class="hidden-bio">"The spark that lit the grid" — visionary leader, mentor, and the cornerstone of Tech Trek.</div>
+        </div>
+        <div class="team-card side-card" onclick="selectMember(this)" data-img="images/team/ss.jpg">
+          <div class="avatar"><img src="images/team/ss.jpg" alt="Sashreek Satapathy"></div>
+          <div class="role">Event Lead and Website Developer</div>
+          <div class="name">Sashreek Satapathy</div>
+          <div class="hidden-bio">"Web Developer" — responsible for the design and implementation of the Tech Trek website.</div>
+        </div>
+        <div class="team-card side-card" onclick="selectMember(this)" data-img="images/team/as.jpg">
+          <div class="avatar"><img src="images/team/as.jpg" alt="Aarav Shah"></div>
+          <div class="role">Co-Founder and Website Developer</div>
+          <div class="name">Aarav Shah</div>
+          <div class="hidden-bio">"Web Developer" — responsible for the design and implementation of the Tech Trek website.</div>
+        </div>
+      </div>
+
+      <div class="center-panel">
+        <div class="team-card center-card" id="spotlight-card">
+          <div class="avatar spotlight-avatar" onclick="openLightbox()">
+            <img src="images/team/tt-default.jpg" alt="Tech Trek Core" id="spotlight-img" onerror="this.style.display='none'">
+          </div>
+          <div class="role" id="spotlight-role" style="font-size:1rem; margin-top:1.5rem;">Tech Trek Core</div>
+          <div class="name" id="spotlight-name" style="font-size:2.2rem; margin-top:0.3rem;">The Grid</div>
+          <p class="spotlight-bio" id="spotlight-bio">
+            Select a team member to learn about their role in building the Tech Trek 3.0 experience.
+          </p>
+        </div>
+      </div>
+
+      <div class="side-panel right-panel">
+        <div class="team-card side-card" onclick="selectMember(this)" data-img="images/team/rp.jpg">
+          <div class="avatar"><img src="images/team/rp.jpg" alt="Rudra Patel"></div>
+          <div class="role">Sr. Tech Secretary</div>
+          <div class="name">Rudra Patel</div>
+          <div class="hidden-bio"></div>
+        </div>
+        <div class="team-card side-card" onclick="selectMember(this)" data-img="images/team/im.jpg">
+          <div class="avatar"><img src="images/team/im.jpg" alt="Ishita Mehta"></div>
+          <div class="role">Sr. Tech Secretary</div>
+          <div class="name">Ishita Mehta</div>
+          <div class="hidden-bio"></div>
+        </div>
+        <div class="team-card side-card" onclick="selectMember(this)" data-img="images/team/an.jpg">
+          <div class="avatar"><img src="images/team/an.jpg" alt="Arjun Nair"></div>
+          <div class="role">Jr. Tech Secretary</div>
+          <div class="name">Arjun Nair</div>
+          <div class="hidden-bio"></div>
+        </div>
+        <div class="team-card side-card" onclick="selectMember(this)" data-img="images/team/ash.jpg">
+          <div class="avatar"><img src="images/team/ash.jpg" alt="Ananya Sharma"></div>
+          <div class="role">Jr. Tech Secretary</div>
+          <div class="name">Ananya Sharma</div>
+          <div class="hidden-bio"></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:3.5rem; font-family:var(--font-mono); color:var(--text-steel); font-size:0.75rem; letter-spacing:1px; border-top:1px dashed var(--glass-border); padding-top:2rem;">
+      <span style="color:var(--matrix-core);">// EGO SUM QUI SUM //</span> — we are the grid.
+    </div>
+  </section>
+
+  <!-- enlarged photo preview -->
+  <div id="photo-lightbox" onclick="closeLightbox(event)">
+    <button class="lb-close" onclick="closeLightbox(event)">[ ✕ CLOSE ]</button>
+    <img id="lightbox-img" src="images/team/tt-default.jpg" alt="">
+    <div class="lb-caption" id="lightbox-caption"></div>
+  </div>
+
+  <footer>
+    <div class="footer-bottom" style="justify-content:center; padding:2rem; gap:1.5rem; flex-wrap:wrap; text-align:center;">
+      <span>22 AUGUST 2026 · SATURDAY · INNOVATE. CREATE. INSPIRE.</span>
+      <a href="index.html" style="color:var(--matrix-core);">[ ← RETURN TO MAIN WEBPAGE ]</a>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      const bootScreen = document.getElementById("boot-screen");
+      const terminalOutput = document.getElementById("terminal-output");
+      const skipBtn = document.getElementById("skip-btn");
+      const bootLines = [
+        "INITIALIZING TECH TREK SYSTEM...",
+        "CONNECTING TO THE GRID...",
+        "LOADING CREW MANIFEST...",
+        "SYSTEM ONLINE.",
+        "WELCOME, TRAVELER."
+      ];
+      if (sessionStorage.getItem("techTrekBooted") === "true") {
+        bootScreen.classList.add("hidden");
+      } else {
+        let lineIndex = 0;
+        const printLine = () => {
+          if (lineIndex < bootLines.length) {
+            const p = document.createElement("p");
+            p.className = "terminal-line";
+            p.textContent = bootLines[lineIndex];
+            terminalOutput.appendChild(p);
+            lineIndex++;
+            setTimeout(printLine, Math.random() * 200 + 150);
+          } else {
+            setTimeout(() => { bootScreen.classList.add("hidden"); sessionStorage.setItem("techTrekBooted", "true"); }, 800);
+          }
+        };
+        skipBtn.addEventListener("click", () => { bootScreen.classList.add("hidden"); sessionStorage.setItem("techTrekBooted", "true"); });
+        setTimeout(printLine, 400);
+      }
+
+      const canvas = document.getElementById("grid-canvas");
+      const ctx = canvas.getContext("2d");
+      let width, height, columns, drops;
+      const chars = "TECHTREKDPSV2026";
+      const charArray = chars.split("");
+      const fontSize = 15;
+      let speed = 50;
+      function setupCanvas() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        columns = Math.floor(width / fontSize);
+        drops = Array(columns).fill(1);
+      }
+      setupCanvas();
+      let mouseX = -100, mouseY = -100;
+      window.addEventListener("mousemove", e => { mouseX = e.clientX; mouseY = e.clientY; });
+      function draw() {
+        ctx.fillStyle = "rgba(2, 4, 3, 0.1)";
+        ctx.fillRect(0, 0, width, height);
+        ctx.font = `${fontSize}px 'JetBrains Mono'`;
+        for (let i = 0; i < drops.length; i++) {
+          const text = charArray[Math.floor(Math.random() * charArray.length)];
+          const x = i * fontSize;
+          const y = drops[i] * fontSize;
+          const dist = Math.hypot(x - mouseX, y - mouseY);
+          if (dist < 110) {
+            ctx.fillStyle = "#00e5ff";
+            ctx.shadowBlur = 12;
+          } else if (Math.random() > 0.97) {
+            ctx.fillStyle = "#ffffff";
+            ctx.shadowBlur = 6;
+          } else {
+            ctx.fillStyle = "#00ff66";
+            ctx.shadowBlur = 0;
+          }
+          ctx.fillText(text, x, y);
+          ctx.shadowBlur = 0;
+          if (y > height && Math.random() > 0.975) drops[i] = 0;
+          drops[i]++;
+        }
+        setTimeout(() => { requestAnimationFrame(draw); }, speed);
+      }
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) draw();
+      window.addEventListener("resize", () => { clearTimeout(window.resized); window.resized = setTimeout(setupCanvas, 150); });
+
+      document.getElementById("mobile-toggle").addEventListener("click", () => {
+        document.getElementById("nav-links").classList.toggle("active");
+      });
+
+      // ---- interactive spotlight ----
+      window.selectMember = function(cardElement) {
+        const imgSrc = cardElement.getAttribute('data-img');
+        const role = cardElement.querySelector('.role').innerText;
+        const name = cardElement.querySelector('.name').innerText;
+        const bio = cardElement.querySelector('.hidden-bio').innerText;
+
+        const spotlightImg = document.getElementById('spotlight-img');
+        const spotlightRole = document.getElementById('spotlight-role');
+        const spotlightName = document.getElementById('spotlight-name');
+        const spotlightBio = document.getElementById('spotlight-bio');
+        const centerCard = document.getElementById('spotlight-card');
+
+        centerCard.style.opacity = '0';
+        setTimeout(() => {
+          spotlightImg.src = imgSrc;
+          spotlightImg.alt = name;
+          spotlightImg.style.display = 'block';
+          spotlightImg.setAttribute('data-current-name', name);
+          spotlightImg.setAttribute('data-current-role', role);
+          spotlightRole.innerText = role;
+          spotlightName.innerText = name;
+          spotlightBio.innerText = bio || '— member of the Tech Trek 3.0 crew —';
+          centerCard.style.opacity = '1';
+        }, 180);
+      };
+
+      // ---- lightbox: expand the spotlight photo to a bigger preview ----
+      window.openLightbox = function() {
+        const spotlightImg = document.getElementById('spotlight-img');
+        if (spotlightImg.style.display === 'none') return;
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+        lightboxImg.src = spotlightImg.src;
+        lightboxImg.alt = spotlightImg.alt;
+        const name = spotlightImg.getAttribute('data-current-name') || document.getElementById('spotlight-name').innerText;
+        const role = spotlightImg.getAttribute('data-current-role') || document.getElementById('spotlight-role').innerText;
+        lightboxCaption.innerText = `${name} — ${role}`;
+        document.getElementById('photo-lightbox').classList.add('open');
+      };
+      window.closeLightbox = function(e) {
+        if (e) e.stopPropagation();
+        document.getElementById('photo-lightbox').classList.remove('open');
+      };
+    })();
+  </script>
+</body>
+</html>

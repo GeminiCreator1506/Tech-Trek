@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>REGISTER | TECH TREK 3.0</title>
+  <meta name="description" content="Register for Tech Trek 3.0 — Delhi Public School Vadodara's Inter-School IT Fest, 22 August 2026.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&family=Orbitron:wght@600;800;900&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="brochure_style.css">
+  <style>
+    /* page-specific: form console frame — not part of the shared stylesheet */
+    .form-console {
+      max-width: 780px; margin: 0 auto; background: var(--glass-bg);
+      border: 1px solid var(--glass-border); backdrop-filter: blur(10px);
+      overflow: hidden;
+    }
+    .form-console-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.9rem 1.4rem; border-bottom: 1px dashed var(--glass-border);
+      font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-steel); letter-spacing: 1px;
+    }
+    .form-console-header .dots { display: flex; gap: 6px; }
+    .form-console-header .dots span { width: 9px; height: 9px; border-radius: 50%; background: var(--glass-border); }
+    .form-console-header .dots span:nth-child(1) { background: #ff5f57; }
+    .form-console-header .dots span:nth-child(2) { background: #febc2e; }
+    .form-console-header .dots span:nth-child(3) { background: #28c840; }
+    .form-console-header .status { color: var(--matrix-core); }
+
+    .form-frame-wrap { position: relative; background: #0b0f13; }
+    .form-frame-wrap iframe {
+      width: 100%; height: 1282px; border: 0; display: block; background: #fff;
+    }
+
+    .form-loading {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 1rem; background: #0b0f13;
+      font-family: var(--font-mono); color: var(--matrix-core); font-size: 0.85rem; letter-spacing: 2px;
+      transition: opacity 0.4s ease;
+    }
+    .form-loading .spinner {
+      width: 36px; height: 36px; border: 2px solid var(--glass-border);
+      border-top-color: var(--matrix-core); border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .form-loading.hidden { opacity: 0; pointer-events: none; }
+
+    .fallback-note {
+      max-width: 780px; margin: 1.4rem auto 0; text-align: center;
+      font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-steel); letter-spacing: 0.5px;
+    }
+    .fallback-note a { color: var(--neon-cyan); }
+    .fallback-note a:hover { text-shadow: 0 0 8px var(--neon-cyan); }
+  </style>
+</head>
+<body>
+  <div id="boot-screen">
+    <div class="terminal-frame">
+      <div class="terminal-output" id="terminal-output"></div>
+    </div>
+    <button class="skip-btn" id="skip-btn">[ SKIP INTRO ]</button>
+  </div>
+
+  <canvas id="grid-canvas"></canvas>
+
+  <nav class="navbar">
+    <a href="index.html" class="brand-logo">TECH<span>TREK</span></a>
+    <button class="mobile-toggle" id="mobile-toggle">☰</button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html#concept">GRID</a></li>
+      <li><a href="tracks.html">TRACKS</a></li>
+      <li><a href="brochure.html">BROCHURE</a></li>
+      <li><a href="gallery.html">GALLERY</a></li>
+      <li><a href="contact.html">CONTACT</a></li>
+      <li><a href="aboutus.html">ABOUT US</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero hero-compact" id="hero">
+    <div class="hud-label">INITIALIZE USER PROFILE</div>
+    <h1 class="hero-title">REGISTER</h1>
+    <div class="hero-tagline">LOCK IN YOUR RUN.</div>
+    <p class="hero-desc">
+      Fill out the form below to register your team for Tech Trek 3.0. Each school may enter up to 2 teams per event, one event per team.
+    </p>
+  </section>
+
+  <section id="registration-form">
+    <div class="form-console">
+      <div class="form-console-header">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <span>GOOGLE_FORMS://TECH_TREK_3.0_REGISTRATION</span>
+        <span class="status">● LIVE</span>
+      </div>
+      <div class="form-frame-wrap">
+        <div class="form-loading" id="form-loading">
+          <div class="spinner"></div>
+          <span>LOADING REGISTRATION FORM...</span>
+        </div>
+        <iframe
+          id="reg-iframe"
+          src="https://docs.google.com/forms/d/e/1FAIpQLSeM6HtlLzdPfnRXM2CtLNdm44Vqh6pZHxdyk7EBOt3UzvJ-Fg/viewform?embedded=true"
+          title="Tech Trek 3.0 Registration Form"
+          onload="document.getElementById('form-loading').classList.add('hidden')">
+          Loading…
+        </iframe>
+      </div>
+    </div>
+    <p class="fallback-note">
+      Form not loading? <a href="https://docs.google.com/forms/d/e/1FAIpQLSeM6HtlLzdPfnRXM2CtLNdm44Vqh6pZHxdyk7EBOt3UzvJ-Fg/viewform" target="_blank" rel="noopener noreferrer">Open it in a new tab instead ↗</a>
+    </p>
+  </section>
+
+  <footer>
+    <div class="footer-bottom" style="justify-content:center; padding:2rem; gap:1.5rem; flex-wrap:wrap; text-align:center;">
+      <span>22 AUGUST 2026 · SATURDAY · INNOVATE. CREATE. INSPIRE.</span>
+      <a href="index.html" style="color:var(--matrix-core);">[ ← RETURN TO MAIN WEBPAGE ]</a>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      const bootScreen = document.getElementById("boot-screen");
+      const terminalOutput = document.getElementById("terminal-output");
+      const skipBtn = document.getElementById("skip-btn");
+      const bootLines = [
+        "INITIALIZING TECH TREK SYSTEM...",
+        "CONNECTING TO THE GRID...",
+        "OPENING REGISTRATION CHANNEL...",
+        "SYSTEM ONLINE.",
+        "WELCOME, TRAVELER."
+      ];
+      if (sessionStorage.getItem("techTrekBooted") === "true") {
+        bootScreen.classList.add("hidden");
+      } else {
+        let lineIndex = 0;
+        const printLine = () => {
+          if (lineIndex < bootLines.length) {
+            const p = document.createElement("p");
+            p.className = "terminal-line";
+            p.textContent = bootLines[lineIndex];
+            terminalOutput.appendChild(p);
+            lineIndex++;
+            setTimeout(printLine, Math.random() * 200 + 150);
+          } else {
+            setTimeout(() => { bootScreen.classList.add("hidden"); sessionStorage.setItem("techTrekBooted", "true"); }, 800);
+          }
+        };
+        skipBtn.addEventListener("click", () => { bootScreen.classList.add("hidden"); sessionStorage.setItem("techTrekBooted", "true"); });
+        setTimeout(printLine, 400);
+      }
+
+      const canvas = document.getElementById("grid-canvas");
+      const ctx = canvas.getContext("2d");
+      let width, height, columns, drops;
+      const chars = "TECHTREKDPSV2026";
+      const charArray = chars.split("");
+      const fontSize = 15;
+      let speed = 50;
+      function setupCanvas() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        columns = Math.floor(width / fontSize);
+        drops = Array(columns).fill(1);
+      }
+      setupCanvas();
+      let mouseX = -100, mouseY = -100;
+      window.addEventListener("mousemove", e => { mouseX = e.clientX; mouseY = e.clientY; });
+      function draw() {
+        ctx.fillStyle = "rgba(2, 4, 3, 0.1)";
+        ctx.fillRect(0, 0, width, height);
+        ctx.font = `${fontSize}px 'JetBrains Mono'`;
+        for (let i = 0; i < drops.length; i++) {
+          const text = charArray[Math.floor(Math.random() * charArray.length)];
+          const x = i * fontSize;
+          const y = drops[i] * fontSize;
+          const dist = Math.hypot(x - mouseX, y - mouseY);
+          if (dist < 110) {
+            ctx.fillStyle = "#00e5ff";
+            ctx.shadowBlur = 12;
+          } else if (Math.random() > 0.97) {
+            ctx.fillStyle = "#ffffff";
+            ctx.shadowBlur = 6;
+          } else {
+            ctx.fillStyle = "#00ff66";
+            ctx.shadowBlur = 0;
+          }
+          ctx.fillText(text, x, y);
+          ctx.shadowBlur = 0;
+          if (y > height && Math.random() > 0.975) drops[i] = 0;
+          drops[i]++;
+        }
+        setTimeout(() => { requestAnimationFrame(draw); }, speed);
+      }
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) draw();
+      window.addEventListener("resize", () => { clearTimeout(window.resized); window.resized = setTimeout(setupCanvas, 150); });
+
+      document.getElementById("mobile-toggle").addEventListener("click", () => {
+        document.getElementById("nav-links").classList.toggle("active");
+      });
+
+      // safety: if the iframe never fires onload (e.g. blocked), stop showing the spinner after 6s
+      setTimeout(() => {
+        const loader = document.getElementById("form-loading");
+        if (loader) loader.classList.add("hidden");
+      }, 6000);
+    })();
+  </script>
+</body>
+</html>

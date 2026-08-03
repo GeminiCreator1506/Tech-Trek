@@ -1,0 +1,33 @@
+/* Reset basic spacing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000;
+    overflow: hidden; /* Prevents scrollbars from appearing */
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Position the canvas fixed to the background */
+#matrixCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; /* Ensures it sits underneath content */
+    display: block;
+}
+
+/* Optional styling for your foreground content */
+.content {
+    position: relative;
+    z-index: 1;
+    color: #ffffff;
+    text-align: center;
+    margin-top: 20vh;
+    text-shadow: 0 0 10px #00ff00;
+}

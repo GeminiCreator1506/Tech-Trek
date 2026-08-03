@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>NEURO BYTE | TECH TREK 3.0</title>
+  <meta name="description" content="Neuro Byte — Tech Trek 3.0's fast-paced technology quiz challenge.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&family=Orbitron:wght@600;800;900&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="brochure_style.css">
+</head>
+<body>
+  <div id="boot-screen">
+    <div class="terminal-frame">
+      <div class="terminal-output" id="terminal-output"></div>
+    </div>
+    <button class="skip-btn" id="skip-btn">[ SKIP INTRO ]</button>
+  </div>
+
+  <canvas id="grid-canvas"></canvas>
+
+  <nav class="navbar">
+    <a href="index.html" class="brand-logo">TECH<span>TREK</span></a>
+    <button class="mobile-toggle" id="mobile-toggle">☰</button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html#concept">GRID</a></li>
+      <li><a href="tracks.html" class="active">TRACKS</a></li>
+      <li><a href="brochure.html">BROCHURE</a></li>
+      <li><a href="gallery.html">GALLERY</a></li>
+      <li><a href="contact.html">CONTACT</a></li>
+      <li><a href="aboutus.html">ABOUT US</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero hero-compact" id="hero">
+    <div class="hud-label">TRACK 01 // KNOWLEDGE</div>
+    <h1 class="hero-title">NEURO BYTE</h1>
+    <div class="hero-tagline">THINK SMART. ANSWER FAST. LEAD THE FUTURE.</div>
+    <div class="cta-group" style="margin-top:2rem;">
+      <a href="registration.html" class="btn btn-primary">[ REGISTER FOR NEURO BYTE ]</a>
+    </div>
+  </section>
+
+  <section id="overview">
+    <a href="tracks.html" class="back-link">[ ← BACK TO TRACKS ]</a>
+
+    <div class="info-card">
+      <p>Test your technology knowledge in a fast-paced quiz challenge covering gadgets, computers, AI, cybersecurity, programming, innovations, and the digital world. Think quickly, answer confidently, and compete to prove your tech expertise!</p>
+    </div>
+
+    <div class="spec-grid">
+      <div class="spec-item"><div class="spec-label">Date</div><div class="spec-value">22 August 2026 (Saturday)</div></div>
+      <div class="spec-item"><div class="spec-label">Reporting Time</div><div class="spec-value">08:00 A.M.</div></div>
+      <div class="spec-item"><div class="spec-label">Participation</div><div class="spec-value">One event per team</div></div>
+      <div class="spec-item"><div class="spec-label">Resources Provided</div><div class="spec-value">Pen and question paper</div></div>
+    </div>
+
+    <p style="text-align:center; color:var(--neon-cyan); font-family:var(--font-mono); font-size:0.85rem; margin-top:2.5rem; letter-spacing:1px;">KNOWLEDGE TODAY. INNOVATION TOMORROW.</p>
+  </section>
+
+  <footer>
+    <div class="footer-bottom" style="justify-content:center; padding:2rem; gap:1.5rem; flex-wrap:wrap; text-align:center;">
+      <span>22 AUGUST 2026 · SATURDAY</span>
+      <a href="tracks.html" style="color:var(--matrix-core);">[ ← BACK TO TRACKS ]</a>
+      <a href="index.html" style="color:var(--matrix-core);">[ HOME ]</a>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      const bootScreen = document.getElementById("boot-screen");
+      const terminalOutput = document.getElementById("terminal-output");
+      const skipBtn = document.getElementById("skip-btn");
+      const bootLines = [
+        "INITIALIZING TECH TREK SYSTEM...",
+        "LOADING TRACK // NEURO BYTE...",
+        "CALIBRATING NEURAL NETWORK...",
+        "SYSTEM ONLINE.",
+        "WELCOME, TRAVELER."
+      ];
+      if (sessionStorage.getItem("techTrekBooted") === "true") {
+        bootScreen.classList.add("hidden");
+      } else {
+        let lineIndex = 0;
+        const printLine = () => {
+          if (lineIndex < bootLines.length) {
+            const p = document.createElement("p");
+            p.className = "terminal-line";
+            p.textContent = bootLines[lineIndex];
+            terminalOutput.appendChild(p);
+            lineIndex++;
+            setTimeout(printLine, Math.random() * 200 + 150);
+          } else {
+            setTimeout(() => { bootScreen.classList.add("hidden"); sessionStorage.setItem("techTrekBooted", "true"); }, 800);
+          }
+        };
+        skipBtn.addEventListener("click", () => { bootScreen.classList.add("hidden"); sessionStorage.setItem("techTrekBooted", "true"); });
+        setTimeout(printLine, 400);
+      }
+
+      const canvas = document.getElementById("grid-canvas");
+      const ctx = canvas.getContext("2d");
+      let width, height, columns, drops;
+      const chars = "TECHTREKDPSV2026";
+      const charArray = chars.split("");
+      const fontSize = 15;
+      let speed = 50;
+      function setupCanvas() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        columns = Math.floor(width / fontSize);
+        drops = Array(columns).fill(1);
+      }
+      setupCanvas();
+      let mouseX = -100, mouseY = -100;
+      window.addEventListener("mousemove", e => { mouseX = e.clientX; mouseY = e.clientY; });
+      function draw() {
+        ctx.fillStyle = "rgba(2, 4, 3, 0.1)";
+        ctx.fillRect(0, 0, width, height);
+        ctx.font = `${fontSize}px 'JetBrains Mono'`;
+        for (let i = 0; i < drops.length; i++) {
+          const text = charArray[Math.floor(Math.random() * charArray.length)];
+          const x = i * fontSize;
+          const y = drops[i] * fontSize;
+          const dist = Math.hypot(x - mouseX, y - mouseY);
+          if (dist < 110) {
+            ctx.fillStyle = "#00e5ff";
+            ctx.shadowBlur = 12;
+          } else if (Math.random() > 0.97) {
+            ctx.fillStyle = "#ffffff";
+            ctx.shadowBlur = 6;
+          } else {
+            ctx.fillStyle = "#00ff66";
+            ctx.shadowBlur = 0;
+          }
+          ctx.fillText(text, x, y);
+          ctx.shadowBlur = 0;
+          if (y > height && Math.random() > 0.975) drops[i] = 0;
+          drops[i]++;
+        }
+        setTimeout(() => { requestAnimationFrame(draw); }, speed);
+      }
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) draw();
+      window.addEventListener("resize", () => { clearTimeout(window.resized); window.resized = setTimeout(setupCanvas, 150); });
+
+      document.getElementById("mobile-toggle").addEventListener("click", () => {
+        document.getElementById("nav-links").classList.toggle("active");
+      });
+    })();
+  </script>
+</body>
+</html>

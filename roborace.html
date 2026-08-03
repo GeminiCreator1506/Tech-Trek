@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>ROBO RACE | TECH TREK 3.0</title>
+  <meta name="description" content="Robo Race — Tech Trek 3.0's robotics obstacle race. Build, program, and race to victory.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&family=Orbitron:wght@600;800;900&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="brochure_style.css">
+</head>
+<body>
+  <div id="boot-screen">
+    <div class="terminal-frame">
+      <div class="terminal-output" id="terminal-output"></div>
+    </div>
+    <button class="skip-btn" id="skip-btn">[ SKIP INTRO ]</button>
+  </div>
+
+  <canvas id="grid-canvas"></canvas>
+
+  <nav class="navbar">
+    <a href="index.html" class="brand-logo">TECH<span>TREK</span></a>
+    <button class="mobile-toggle" id="mobile-toggle">☰</button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html#concept">GRID</a></li>
+      <li><a href="tracks.html" class="active">TRACKS</a></li>
+      <li><a href="brochure.html">BROCHURE</a></li>
+      <li><a href="gallery.html">GALLERY</a></li>
+      <li><a href="contact.html">CONTACT</a></li>
+      <li><a href="aboutus.html">ABOUT US</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero hero-compact" id="hero">
+    <div class="hud-label">TRACK 03 // ENGINEERING</div>
+    <h1 class="hero-title">ROBO RACE</h1>
+    <div class="hero-tagline">BUILD. PROGRAM. RACE TO VICTORY.</div>
+    <div class="cta-group" style="margin-top:2rem;">
+      <a href="registration.html" class="btn btn-primary">[ REGISTER FOR ROBO RACE ]</a>
+    </div>
+  </section>
+
+  <section id="overview">
+    <a href="tracks.html" class="back-link">[ ← BACK TO TRACKS ]</a>
+    <div class="info-card">
+      <p>Witness autonomous or remote-controlled robots compete in an exciting race of speed, precision, and engineering. Navigate obstacles, cross the track, and be the first to reach the finish line. Think smart, build better, and race to victory!</p>
+    </div>
+
+    <div class="tag-row">
+      <span class="tag-chip node">START</span>
+      <span class="tag-chip">OIL SPILL</span>
+      <span class="tag-chip">CURVY PATH</span>
+      <span class="tag-chip">SMALL ROCKS</span>
+      <span class="tag-chip">BRIDGE</span>
+      <span class="tag-chip">NARROW PASSAGE</span>
+      <span class="tag-chip">SHARP TURNS</span>
+      <span class="tag-chip node">FINISH</span>
+    </div>
+
+    <div class="spec-grid">
+      <div class="spec-item"><div class="spec-label">Track</div><div class="spec-value">Obstacle race, multiple challenges</div></div>
+      <div class="spec-item"><div class="spec-label">Duration</div><div class="spec-value">30 to 45 minutes</div></div>
+      <div class="spec-item"><div class="spec-label">Mode</div><div class="spec-value">Individual or Paired</div></div>
+      <div class="spec-item"><div class="spec-label">Robot</div><div class="spec-value">Autonomous / Remote Controlled</div></div>
+      <div class="spec-item"><div class="spec-label">Resources</div><div class="spec-value">School will provide all required instruments</div></div>
+      <div class="spec-item"><div class="spec-label">Rule</div><div class="spec-value">Follow the track, complete all obstacles, finish first</div></div>
+    </div>
+  </section>
+
+  <section id="car-specs" style="padding-top:0;">
+    <div class="section-header">
+      <h2 class="section-title" style="font-size:1.8rem;">CAR SPECIFICATIONS</h2>
+    </div>
+    <div class="spec-grid">
+      <div class="spec-item"><div class="spec-label">Dimensions</div><div class="spec-value">Max 30 x 30 x 30 cm</div></div>
+      <div class="spec-item"><div class="spec-label">Weight Limit</div><div class="spec-value">Max 5 KG</div></div>
+      <div class="spec-item"><div class="spec-label">Power Limit</div><div class="spec-value">≤16V DC (LiPo / Li-ion only)</div></div>
+      <div class="spec-item"><div class="spec-label">Configuration</div><div class="spec-value">4-wheel robot, any wheel type, DC drive motors only, optional servo steering, no flying</div></div>
+      <div class="spec-item"><div class="spec-label">Terrain</div><div class="spec-value">Capable of traversing stones, slopes, hurdles and oil</div></div>
+      <div class="spec-item"><div class="spec-label">Control</div><div class="spec-value">Wired, RF or Bluetooth only (no WiFi)</div></div>
+      <div class="spec-item"><div class="spec-label">Construction</div><div class="spec-value">No premade kits or toys</div></div>
+      <div class="spec-item"><div class="spec-label">Manual Intervention</div><div class="spec-value">Up to 2 adjustments per run to clear hindrances (costs points)</div></div>
+      <div class="spec-item"><div class="spec-label">Others</div><div class="spec-value">No sharp edges or hazardous materials; secure wiring and strong build required</div></div>
+    </div>
+  </section>
+
+  <section id="rules" style="padding-top:0;">
+    <div class="section-header">
+      <h2 class="section-title" style="font-size:1.8rem;">RULES</h2>
+    </div>
+    <ul class="bullet-list">
+      <li><strong>MAXIMUM:</strong> 2 members per team.</li>
+      <li><strong>REPAIRS:</strong> Once a robot has passed inspection, no repairs or part replacements are permitted between heats.</li>
+      <li><strong>SPORTSMANSHIP:</strong> Any attempt to tamper with another team's robot will result in disqualification.</li>
+      <li><strong>SIGNAL INTERFERENCE:</strong> Deliberate interference with another team's RF or Bluetooth control is strictly prohibited.</li>
+      <li><strong>MANUAL INTERVENTION:</strong> Teams may manually assist their robot up to two times during a run — each intervention carries a 15-point penalty.</li>
+      <li><strong>TIME LIMIT:</strong> To be announced on the day of the event.</li>
+    </ul>
+  </section>
+
+  <section id="scoring" style="padding-top:0;">
+    <div class="section-header">
+      <h2 class="section-title" style="font-size:1.8rem;">TRACK &amp; SCORING</h2>
+    </div>
+    <div class="spec-grid">
+      <div class="spec-item"><div class="spec-label">Track</div><div class="spec-value">7–8 checkpoints, crossed in order</div></div>
+      <div class="spec-item"><div class="spec-label">Checkpoint</div><div class="spec-value">+10 points</div></div>
+      <div class="spec-item"><div class="spec-label">Course Finish</div><div class="spec-value">+20 points</div></div>
+      <div class="spec-item"><div class="spec-label">Manual Touch</div><div class="spec-value">−15 points each</div></div>
+      <div class="spec-item"><div class="spec-label">Run Ends When</div><div class="spec-value">Course completed, robot cannot continue, or more than 2 manual touches</div></div>
+      <div class="spec-item"><div class="spec-label">Ranking</div><div class="spec-value">Highest score, fastest time as tie-breaker</div></div>
+    </div>
+  </section>
+
+  <section id="disqualification" style="padding-top:0;">
+    <div class="section-header">
+      <h2 class="section-title" style="font-size:1.8rem;">DISQUALIFICATION</h2>
+    </div>
+    <ul class="disq-list" style="max-width:500px; margin-left:auto; margin-right:auto;">
+      <li>// Signal interference</li>
+      <li>// Tampering with another robot</li>
+      <li>// Failed inspection / start-box check</li>
+    </ul>
+    <p style="text-align:center; color:var(--neon-cyan); font-family:var(--font-mono); font-size:0.85rem; margin-top:2.5rem; letter-spacing:1px;">THINK. BUILD. COMPETE. CONQUER.</p>
+  </section>
+
+  <footer>
+    <div class="footer-bottom" style="justify-content:center; padding:2rem; gap:1.5rem; flex-wrap:wrap; text-align:center;">
+      <span>22 AUGUST 2026 · SATURDAY</span>
+      <a href="tracks.html" style="color:var(--matrix-core);">[ ← BACK TO TRACKS ]</a>
+      <a href="index.html" style="color:var(--matrix-core);">[ HOME ]</a>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      const bootScreen = document.getElementById("boot-screen");
+      const terminalOutput = document.getElementById("terminal-output");
+      const skipBtn = document.getElementById("skip-btn");
+      const bootLines = [
+        "INITIALIZING TECH TREK SYSTEM...",
+        "LOADING TRACK // ROBO RACE...",
+        "CALIBRATING OBSTACLE COURSE...",
+        "SYSTEM ONLINE.",
+        "WELCOME, TRAVELER."
+      ];
+      if (sessionStorage.getItem("techTrekBooted") === "true") {
+        bootScreen.classList.add("hidden");
+      } else {
+        let lineIndex = 0;
+        const printLine = () => {
+          if (lineIndex < bootLines.length) {
+            const p = document.createElement("p");
+            p.className = "terminal-line";
+            p.textContent = bootLines[lineIndex];
+            terminalOutput.appendChild(p);
+            lineIndex++;
+            setTimeout(printLine, Math.random() * 200 + 150);
+          } else {
+            setTimeout(() => { bootScreen.classList.add("hidden"); sessionStorage.setItem("techTrekBooted", "true"); }, 800);
+          }
+        };
+        skipBtn.addEventListener("click", () => { bootScreen.classList.add("hidden"); sessionStorage.setItem("techTrekBooted", "true"); });
+        setTimeout(printLine, 400);
+      }
+
+      const canvas = document.getElementById("grid-canvas");
+      const ctx = canvas.getContext("2d");
+      let width, height, columns, drops;
+      const chars = "TECHTREKDPSV2026";
+      const charArray = chars.split("");
+      const fontSize = 15;
+      let speed = 50;
+      function setupCanvas() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        columns = Math.floor(width / fontSize);
+        drops = Array(columns).fill(1);
+      }
+      setupCanvas();
+      let mouseX = -100, mouseY = -100;
+      window.addEventListener("mousemove", e => { mouseX = e.clientX; mouseY = e.clientY; });
+      function draw() {
+        ctx.fillStyle = "rgba(2, 4, 3, 0.1)";
+        ctx.fillRect(0, 0, width, height);
+        ctx.font = `${fontSize}px 'JetBrains Mono'`;
+        for (let i = 0; i < drops.length; i++) {
+          const text = charArray[Math.floor(Math.random() * charArray.length)];
+          const x = i * fontSize;
+          const y = drops[i] * fontSize;
+          const dist = Math.hypot(x - mouseX, y - mouseY);
+          if (dist < 110) {
+            ctx.fillStyle = "#00e5ff";
+            ctx.shadowBlur = 12;
+          } else if (Math.random() > 0.97) {
+            ctx.fillStyle = "#ffffff";
+            ctx.shadowBlur = 6;
+          } else {
+            ctx.fillStyle = "#00ff66";
+            ctx.shadowBlur = 0;
+          }
+          ctx.fillText(text, x, y);
+          ctx.shadowBlur = 0;
+          if (y > height && Math.random() > 0.975) drops[i] = 0;
+          drops[i]++;
+        }
+        setTimeout(() => { requestAnimationFrame(draw); }, speed);
+      }
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) draw();
+      window.addEventListener("resize", () => { clearTimeout(window.resized); window.resized = setTimeout(setupCanvas, 150); });
+
+      document.getElementById("mobile-toggle").addEventListener("click", () => {
+        document.getElementById("nav-links").classList.toggle("active");
+      });
+    })();
+  </script>
+</body>
+</html>

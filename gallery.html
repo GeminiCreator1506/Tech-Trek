@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>GALLERY | TECH TREK 3.0</title>
+  <meta name="description" content="Tech Trek gallery — moments from Tech Trek 2.0 (2025), with Tech Trek 3.0 photos coming soon.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&family=Orbitron:wght@600;800;900&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="brochure_style.css">
+  <style>
+    /* page-specific: real photos in gallery tiles + expand-to-full lightbox */
+    .gallery-tile { cursor: zoom-in; padding: 0; }
+    .gallery-tile img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.35s ease, filter 0.35s ease;
+    }
+    .gallery-tile:hover img { transform: scale(1.06); }
+
+    #gallery-lightbox {
+      position: fixed; inset: 0; background: rgba(2,4,3,0.94); z-index: 500;
+      display: none; align-items: center; justify-content: center; cursor: zoom-out;
+      backdrop-filter: blur(6px); padding: 2rem;
+    }
+    #gallery-lightbox.open { display: flex; }
+    #gallery-lightbox img {
+      max-width: min(1100px, 92vw); max-height: 80vh; object-fit: contain;
+      border: 1px solid var(--glass-border); box-shadow: 0 0 60px rgba(0,229,255,0.15);
+    }
+    #gallery-lightbox .lb-caption {
+      position: absolute; bottom: 6%; left: 50%; transform: translateX(-50%);
+      text-align: center; font-family: var(--font-mono); color: var(--text-steel);
+      font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase;
+    }
+    #gallery-lightbox .lb-close {
+      position: absolute; top: 5%; right: 5%; font-family: var(--font-mono); color: var(--text-steel);
+      font-size: 0.8rem; letter-spacing: 1px; border: 1px solid var(--glass-border);
+      padding: 0.5rem 1rem; background: transparent; cursor: pointer;
+    }
+    .gallery-hint {
+      text-align: center; margin-top: 1.4rem; font-family: var(--font-mono);
+      font-size: 0.75rem; color: var(--text-steel); letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+  <div id="boot-screen">
+    <div class="terminal-frame">
+      <div class="terminal-output" id="terminal-output"></div>
+    </div>
+    <button class="skip-btn" id="skip-btn">[ SKIP INTRO ]</button>
+  </div>
+
+  <canvas id="grid-canvas"></canvas>
+
+  <nav class="navbar">
+    <a href="index.html" class="brand-logo">TECH<span>TREK</span></a>
+    <button class="mobile-toggle" id="mobile-toggle">☰</button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html#concept">GRID</a></li>
+      <li><a href="tracks.html">TRACKS</a></li>
+      <li><a href="brochure.html">BROCHURE</a></li>
+      <li><a href="gallery.html" class="active">GALLERY</a></li>
+      <li><a href="contact.html">CONTACT</a></li>
+      <li><a href="aboutus.html">ABOUT US</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero hero-compact" id="hero">
+    <div class="hud-label">ARCHIVE // VISUAL LOG</div>
+    <h1 class="hero-title">GALLERY</h1>
+    <div class="hero-tagline">MOMENTS FROM THE GRID.</div>
+    <p class="hero-desc">
+      A look back at Tech Trek 2.0, and a first look at what's building for Tech Trek 3.0.
+    </p>
+  </section>
+
+  <!-- THIS YEAR — TECH TREK 3.0 -->
+  <section id="this-year">
+    <div class="section-header">
+      <div class="hud-label">LOG_ENTRY // TECH TREK 3.0 // 2026</div>
+      <h2 class="section-title">THIS YEAR</h2>
+    </div>
+    <div class="glitch-loading">
+      <svg class="scan-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="3" y="3" width="18" height="18" rx="1"></rect>
+        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+        <path d="M21 15l-5-5L5 21"></path>
+      </svg>
+      <h3>GALLERY://NOT_YET_LOADED</h3>
+      <div class="glitch-bar"></div>
+      <p>
+        Photos from Tech Trek 3.0 will be uploaded here once the event wraps &mdash; sourced from the
+        official Google Drive album and synced to this page. Check back after 22 August 2026.
+      </p>
+    </div>
+  </section>
+
+  <!-- PREVIOUS YEAR MOMENTS -->
+  <section id="last-year">
+    <div class="section-header">
+      <div class="hud-label">ARCHIVE // TECH TREK 2.0 // 2025</div>
+      <h2 class="section-title">PREVIOUS YEAR'S MOMENTS</h2>
+      <p style="color: var(--text-steel);">Where passion builds innovation. One robot, one run, endless possibilities.</p>
+    </div>
+
+    <!--
+      Each tile below points at a placeholder photo. Replace the files in
+      images/gallery/2025/ with real photos of the same filename (4:3, ~1200x900px)
+      once available — no HTML changes needed.
+    -->
+    <div class="gallery-grid">
+      <div class="gallery-tile" onclick="openGalleryLightbox(this)" data-full="images/gallery/2025/opening-ceremony.jpg">
+        <img src="images/gallery/2025/opening-ceremony.jpg" alt="Opening Ceremony, Tech Trek 2.0" loading="lazy">
+        <div class="gallery-caption">Opening Ceremony</div>
+      </div>
+      <div class="gallery-tile" onclick="openGalleryLightbox(this)" data-full="images/gallery/2025/roborace-heats.jpg">
+        <img src="images/gallery/2025/roborace-heats.jpg" alt="Robo Race heats, Tech Trek 2.0" loading="lazy">
+        <div class="gallery-caption">Hackathon</div>
+      </div>
+      <div class="gallery-tile" onclick="openGalleryLightbox(this)" data-full="images/gallery/2025/roborace-track.jpg">
+        <img src="images/gallery/2025/roborace-track.jpg" alt="Robo Race track, Tech Trek 2.0" loading="lazy">
+        <div class="gallery-caption">Reel Making Challenge</div>
+      </div>
+      <div class="gallery-tile" onclick="openGalleryLightbox(this)" data-full="images/gallery/2025/pixelforge-studio.jpg">
+        <img src="images/gallery/2025/pixelforge-studio.jpg" alt="Pixel Forge studio, Tech Trek 2.0" loading="lazy">
+        <div class="gallery-caption">STEM Quiz</div>
+      </div>
+      <div class="gallery-tile" onclick="openGalleryLightbox(this)" data-full="images/gallery/2025/neurobyte-quiz.jpg">
+        <img src="images/gallery/2025/neurobyte-quiz.jpg" alt="Neuro Byte quiz round, Tech Trek 2.0" loading="lazy">
+        <div class="gallery-caption">Ending Ceremony</div>
+      </div>
+      <div class="gallery-tile" onclick="openGalleryLightbox(this)" data-full="images/gallery/2025/team-huddles.jpg">
+        <img src="images/gallery/2025/team-huddles.jpg" alt="Team huddles, Tech Trek 2.0" loading="lazy">
+        <div class="gallery-caption">Core Committee</div>
+      </div>
+      <div class="gallery-tile" onclick="openGalleryLightbox(this)" data-full="images/gallery/2025/crowd-audience.jpg">
+        <img src="images/gallery/2025/crowd-audience.jpg" alt="Crowd and audience, Tech Trek 2.0" loading="lazy">
+        <div class="gallery-caption">Crowd &amp; Audience</div>
+      </div>
+      <div class="gallery-tile" onclick="openGalleryLightbox(this)" data-full="images/gallery/2025/award-ceremony.jpg">
+        <img src="images/gallery/2025/award-ceremony.jpg" alt="Award ceremony, Tech Trek 2.0" loading="lazy">
+        <div class="gallery-caption">Award Ceremony</div>
+      </div>
+    </div>
+    <p class="gallery-hint">[ CLICK ANY PHOTO TO EXPAND ]</p>
+  </section>
+
+  <!-- expand-to-full lightbox -->
+  <div id="gallery-lightbox" onclick="closeGalleryLightbox(event)">
+    <button class="lb-close" onclick="closeGalleryLightbox(event)">[ ✕ CLOSE ]</button>
+    <img id="gallery-lightbox-img" src="" alt="">
+    <div class="lb-caption" id="gallery-lightbox-caption"></div>
+  </div>
+
+  <footer>
+    <div class="footer-bottom" style="justify-content:center; padding:2rem; gap:1.5rem; flex-wrap:wrap; text-align:center;">
+      <span>22 AUGUST 2026 · SATURDAY · INNOVATE. CREATE. INSPIRE.</span>
+      <a href="index.html" style="color:var(--matrix-core);">[ ← RETURN TO MAIN WEBPAGE ]</a>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      const bootScreen = document.getElementById("boot-screen");
+      const terminalOutput = document.getElementById("terminal-output");
+      const skipBtn = document.getElementById("skip-btn");
+      const bootLines = [
+        "INITIALIZING TECH TREK SYSTEM...",
+        "CONNECTING TO THE GRID...",
+        "LOADING VISUAL ARCHIVE...",
+        "SYNCING PHOTO RECORDS...",
+        "SYSTEM ONLINE.",
+        "WELCOME, TRAVELER."
+      ];
+      if (sessionStorage.getItem("techTrekBooted") === "true") {
+        bootScreen.classList.add("hidden");
+      } else {
+        let lineIndex = 0;
+        const printLine = () => {
+          if (lineIndex < bootLines.length) {
+            const p = document.createElement("p");
+            p.className = "terminal-line";
+            p.textContent = bootLines[lineIndex];
+            terminalOutput.appendChild(p);
+            lineIndex++;
+            setTimeout(printLine, Math.random() * 200 + 150);
+          } else {
+            setTimeout(() => { bootScreen.classList.add("hidden"); sessionStorage.setItem("techTrekBooted", "true"); }, 800);
+          }
+        };
+        skipBtn.addEventListener("click", () => { bootScreen.classList.add("hidden"); sessionStorage.setItem("techTrekBooted", "true"); });
+        setTimeout(printLine, 400);
+      }
+
+      const canvas = document.getElementById("grid-canvas");
+      const ctx = canvas.getContext("2d");
+      let width, height, columns, drops;
+      const chars = "TECHTREKDPSV2026";
+      const charArray = chars.split("");
+      const fontSize = 15;
+      let speed = 50;
+      function setupCanvas() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        columns = Math.floor(width / fontSize);
+        drops = Array(columns).fill(1);
+      }
+      setupCanvas();
+      let mouseX = -100, mouseY = -100;
+      window.addEventListener("mousemove", e => { mouseX = e.clientX; mouseY = e.clientY; });
+      function draw() {
+        ctx.fillStyle = "rgba(2, 4, 3, 0.1)";
+        ctx.fillRect(0, 0, width, height);
+        ctx.font = `${fontSize}px 'JetBrains Mono'`;
+        for (let i = 0; i < drops.length; i++) {
+          const text = charArray[Math.floor(Math.random() * charArray.length)];
+          const x = i * fontSize;
+          const y = drops[i] * fontSize;
+          const dist = Math.hypot(x - mouseX, y - mouseY);
+          if (dist < 110) {
+            ctx.fillStyle = "#00e5ff";
+            ctx.shadowBlur = 12;
+          } else if (Math.random() > 0.97) {
+            ctx.fillStyle = "#ffffff";
+            ctx.shadowBlur = 6;
+          } else {
+            ctx.fillStyle = "#00ff66";
+            ctx.shadowBlur = 0;
+          }
+          ctx.fillText(text, x, y);
+          ctx.shadowBlur = 0;
+          if (y > height && Math.random() > 0.975) drops[i] = 0;
+          drops[i]++;
+        }
+        setTimeout(() => { requestAnimationFrame(draw); }, speed);
+      }
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) draw();
+      window.addEventListener("resize", () => { clearTimeout(window.resized); window.resized = setTimeout(setupCanvas, 150); });
+
+      document.getElementById("mobile-toggle").addEventListener("click", () => {
+        document.getElementById("nav-links").classList.toggle("active");
+      });
+
+      // ---- gallery lightbox: click a tile to expand to full size ----
+      window.openGalleryLightbox = function(tile) {
+        const full = tile.getAttribute('data-full');
+        const caption = tile.querySelector('.gallery-caption').innerText;
+        document.getElementById('gallery-lightbox-img').src = full;
+        document.getElementById('gallery-lightbox-img').alt = caption;
+        document.getElementById('gallery-lightbox-caption').innerText = caption;
+        document.getElementById('gallery-lightbox').classList.add('open');
+      };
+      window.closeGalleryLightbox = function(e) {
+        if (e) e.stopPropagation();
+        document.getElementById('gallery-lightbox').classList.remove('open');
+      };
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeGalleryLightbox();
+      });
+    })();
+  </script>
+</body>
+</html>
